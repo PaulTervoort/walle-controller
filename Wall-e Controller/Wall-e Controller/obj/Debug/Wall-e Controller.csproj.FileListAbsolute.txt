@@ -1,0 +1,11 @@
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\bin\Debug\Wall-e Controller.exe.config
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\bin\Debug\Wall-e Controller.exe
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\bin\Debug\Wall-e Controller.pdb
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\obj\Debug\Wall-e Controller.csprojAssemblyReference.cache
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\obj\Debug\Wall_e_Controller.Form1.resources
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\obj\Debug\Wall_e_Controller.Properties.Resources.resources
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\obj\Debug\Wall-e Controller.csproj.GenerateResource.cache
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\obj\Debug\Wall-e Controller.csproj.CoreCompileInputs.cache
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\obj\Debug\Wall-e Controller.exe
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\obj\Debug\Wall-e Controller.pdb
+D:\Programming\Visual Studio 2017\Projects\Wall-e Controller\Wall-e Controller\obj\Debug\Wall_e_Controller.settingsForm.resources
