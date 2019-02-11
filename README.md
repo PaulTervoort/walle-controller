@@ -1,2 +1,4 @@
 # walle-controller
-een of andere robot uit een of andere disney film
+This is a controller program for our Wall-e which is a school project.
+
+[!alt text](https://ibb.co/WDWmrdK)
