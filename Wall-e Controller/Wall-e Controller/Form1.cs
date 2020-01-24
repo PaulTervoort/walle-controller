@@ -1,16 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Net;
+using System.IO;
 
 namespace Wall_e_Controller
 {
     public partial class Form1 : Form
     {
         SerialPort port = new SerialPort();
-        List<byte> dataIn = new List<byte>();
 
         public Form1()
         {
@@ -27,6 +29,11 @@ namespace Wall_e_Controller
 
         private void connectButton_Click(object sender, EventArgs e)
         {
+            arduinoStatusLabel.Text = "inactive";
+            arduinoStatusLabel.ForeColor = Color.Red;
+            rpiStatusLabel.Text = "inactive";
+            rpiStatusLabel.ForeColor = Color.Red;
+
             try
             {
                 if (port.IsOpen)
@@ -36,14 +43,12 @@ namespace Wall_e_Controller
                 port.DataReceived += new SerialDataReceivedEventHandler(ReceiveBytes);
                 port.Open();
 
-                arduinoStatusLabel.Text = "active";
-                arduinoStatusLabel.ForeColor = Color.Green;
+                byte[] test = { 0 };
+                SendData(test);
             }
-            catch
-            {
-                arduinoStatusLabel.Text = "inactive";
-                arduinoStatusLabel.ForeColor = Color.Red;
-            }
+            catch { }
+
+            UpdatePicture();
         }
 
         private void settingsButton_Click(object sender, EventArgs e)
@@ -56,9 +61,19 @@ namespace Wall_e_Controller
 
         void ReceiveBytes(object sender, SerialDataReceivedEventArgs e)
         {
-            byte[] temp = new byte[port.BytesToRead];
-            port.Read(temp, 0, temp.Length);
-            dataIn.AddRange(temp);
+            
+            byte[] received = new byte[port.BytesToRead];
+            port.Read(received, 0, received.Length);
+
+            byte[] connectionActive = { 0 };
+            if (received.Contains(connectionActive[0]))
+            {
+                arduinoStatusLabel.BeginInvoke((MethodInvoker)delegate ()
+                {
+                    arduinoStatusLabel.Text = "active";
+                    arduinoStatusLabel.ForeColor = Color.Green;
+                });
+            }
         }
 
         void SendData(byte[] sendData)
@@ -293,6 +308,58 @@ namespace Wall_e_Controller
             }
 
             speedLabel.Text = "Power: " + setSpeed.ToString();
+            Console.WriteLine(speedLabel.Location);
+            speedLabel.ForeColor = Color.White;
+        }
+
+        Task UpdateTask = Task.Factory.StartNew(() => { });
+        CancellationTokenSource ts = new CancellationTokenSource();
+
+        void UpdatePicture()
+        {
+            ts.Cancel();
+            ts = new CancellationTokenSource();
+            CancellationToken ct = ts.Token;
+
+            UpdateTask = Task.Factory.StartNew(() => 
+            {
+                while (true)
+                {
+                    if (ct.IsCancellationRequested)
+                        break;
+
+                    WebClient client = new WebClient();
+
+                    byte[] image = new byte[0];
+
+                    try
+                    {
+                        image = client.DownloadData(new Uri("http://" + Functions.GetSettingValue("ip-address") + "/cam/cam_pic.php"));
+                    }catch
+                    {
+                        Console.WriteLine("IP Address incorrect!");
+                        UpdateTask.Dispose();
+
+                        rpiStatusLabel.BeginInvoke((MethodInvoker)delegate ()
+                        {
+                            rpiStatusLabel.Text = "inactive";
+                            rpiStatusLabel.ForeColor = Color.Red;
+                        });
+                    }
+
+                    rpiStatusLabel.BeginInvoke((MethodInvoker)delegate ()
+                    {
+                        rpiStatusLabel.Text = "active";
+                        rpiStatusLabel.ForeColor = Color.Green;
+                    });
+
+                    try
+                    {
+                        Image img = Image.FromStream(new MemoryStream(image));
+                        camView.BeginInvoke((MethodInvoker)delegate () { camView.Image = img; });
+                    }catch { Console.WriteLine("RPI cam not connected!");  }
+                }
+            }, ct);
         }
     }
 }

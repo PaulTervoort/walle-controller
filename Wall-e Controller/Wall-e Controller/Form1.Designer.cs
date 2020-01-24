@@ -166,6 +166,7 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Black;
             this.panel1.Controls.Add(this.speedLabel);
             this.panel1.Location = new System.Drawing.Point(900, 540);
@@ -179,7 +180,7 @@
             this.speedLabel.AutoSize = true;
             this.speedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.speedLabel.ForeColor = System.Drawing.Color.White;
-            this.speedLabel.Location = new System.Drawing.Point(3, 1);
+            this.speedLabel.Location = new System.Drawing.Point(3, 2);
             this.speedLabel.Name = "speedLabel";
             this.speedLabel.Size = new System.Drawing.Size(146, 38);
             this.speedLabel.TabIndex = 0;
