@@ -10,6 +10,16 @@ using System.IO;
 
 namespace Wall_e_Controller
 {
+    public class CameraWebClient : WebClient
+    {
+        protected override WebRequest GetWebRequest(Uri address)
+        {
+            WebRequest wr = base.GetWebRequest(address);
+            wr.Timeout = 500;
+            return wr;
+        }
+    }
+
     public partial class Form1 : Form
     {
         SerialPort port = new SerialPort();
@@ -23,8 +33,6 @@ namespace Wall_e_Controller
         {
             arduinoComLabel.Text = Functions.GetSettingValue("arduino-com");
             rpiIPLabel.Text = Functions.GetSettingValue("ip-address");
-
-            Console.WriteLine("Starting thread.");
         }
 
         private void connectButton_Click(object sender, EventArgs e)
@@ -34,19 +42,21 @@ namespace Wall_e_Controller
             rpiStatusLabel.Text = "inactive";
             rpiStatusLabel.ForeColor = Color.Red;
 
-            try
+            Task.Factory.StartNew(() =>
             {
-                if (port.IsOpen)
-                    port.Close();
+                try
+                {
+                    if (port.IsOpen) { port.Close(); }
 
-                port = new SerialPort(Functions.GetSettingValue("arduino-com"));
-                port.DataReceived += new SerialDataReceivedEventHandler(ReceiveBytes);
-                port.Open();
+                    port = new SerialPort(Functions.GetSettingValue("arduino-com"));
+                    port.DataReceived += new SerialDataReceivedEventHandler(ReceiveBytes);
+                    port.Open();
 
-                byte[] test = { 0 };
-                SendData(test);
-            }
-            catch { }
+                    byte[] test = { 0 };
+                    SendData(test);
+                }
+                catch { }
+            });
 
             UpdatePicture();
         }
@@ -61,12 +71,10 @@ namespace Wall_e_Controller
 
         void ReceiveBytes(object sender, SerialDataReceivedEventArgs e)
         {
-            
             byte[] received = new byte[port.BytesToRead];
             port.Read(received, 0, received.Length);
 
-            byte[] connectionActive = { 0 };
-            if (received.Contains(connectionActive[0]))
+            if (received.Contains((byte)0))
             {
                 arduinoStatusLabel.BeginInvoke((MethodInvoker)delegate ()
                 {
@@ -312,54 +320,53 @@ namespace Wall_e_Controller
             speedLabel.ForeColor = Color.White;
         }
 
+
+
         Task UpdateTask = Task.Factory.StartNew(() => { });
-        CancellationTokenSource ts = new CancellationTokenSource();
 
         void UpdatePicture()
         {
-            ts.Cancel();
-            ts = new CancellationTokenSource();
-            CancellationToken ct = ts.Token;
-
-            UpdateTask = Task.Factory.StartNew(() => 
+            if (UpdateTask.Status != TaskStatus.Running)
             {
-                while (true)
+                rpiStatusLabel.Text = "active";
+                rpiStatusLabel.ForeColor = Color.Green;
+
+                UpdateTask = Task.Factory.StartNew(() =>
                 {
-                    if (ct.IsCancellationRequested)
-                        break;
-
-                    WebClient client = new WebClient();
-
+                    CameraWebClient client = new CameraWebClient();
                     byte[] image = new byte[0];
 
-                    try
+                    while (true)
                     {
-                        image = client.DownloadData(new Uri("http://" + Functions.GetSettingValue("ip-address") + "/cam/cam_pic.php"));
-                    }catch
-                    {
-                        Console.WriteLine("IP Address incorrect!");
-                        UpdateTask.Dispose();
-
-                        rpiStatusLabel.BeginInvoke((MethodInvoker)delegate ()
+                        try
                         {
-                            rpiStatusLabel.Text = "inactive";
-                            rpiStatusLabel.ForeColor = Color.Red;
-                        });
+                            image = client.DownloadData(new Uri("http://" + Functions.GetSettingValue("ip-address") + "/cam/cam_pic.php"));
+                        }
+                        catch
+                        {
+                            rpiStatusLabel.BeginInvoke((MethodInvoker)delegate ()
+                            {
+                                rpiStatusLabel.Text = "inactive";
+                                rpiStatusLabel.ForeColor = Color.Red;
+                            });
+
+                            Console.WriteLine("Image data unreachable");
+                            break;
+
+                        }
+
+                        try
+                        {
+                            Image img = Image.FromStream(new MemoryStream(image));
+                            camView.BeginInvoke((MethodInvoker)delegate () { camView.Image = img; });
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid image data");
+                        }
                     }
-
-                    rpiStatusLabel.BeginInvoke((MethodInvoker)delegate ()
-                    {
-                        rpiStatusLabel.Text = "active";
-                        rpiStatusLabel.ForeColor = Color.Green;
-                    });
-
-                    try
-                    {
-                        Image img = Image.FromStream(new MemoryStream(image));
-                        camView.BeginInvoke((MethodInvoker)delegate () { camView.Image = img; });
-                    }catch { Console.WriteLine("RPI cam not connected!");  }
-                }
-            }, ct);
+                });
+            }
         }
     }
 }
