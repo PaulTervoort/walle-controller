@@ -30,4 +30,5 @@ C:\Users\Paulus\Source\Repos\PaulTervoort\walle-controller\Wall-e Controller\Wal
 C:\Users\Paulus\Source\Repos\PaulTervoort\walle-controller\Wall-e Controller\Wall-e Controller\obj\Debug\Wall-e Controller.csproj.CoreCompileInputs.cache
 C:\Users\Paulus\Source\Repos\PaulTervoort\walle-controller\Wall-e Controller\Wall-e Controller\obj\Debug\Wall-e Controller.exe
 C:\Users\Paulus\Source\Repos\PaulTervoort\walle-controller\Wall-e Controller\Wall-e Controller\obj\Debug\Wall-e Controller.pdb
-C:\Users\Paulus\Source\Repos\PaulTervoort\walle-controller\Wall-e Controller\Wall-e Controller\obj\Debug\Wall_e_Controller.Form1.resources
+C:\Users\Paulus\Source\Repos\PaulTervoort\walle-controller\Wall-e Controller\Wall-e Controller\obj\Debug\Wall_e_Controller.ATConsole.resources
+C:\Users\Paulus\Source\Repos\PaulTervoort\walle-controller\Wall-e Controller\Wall-e Controller\obj\Debug\Wall_e_Controller.MainForm.resources
