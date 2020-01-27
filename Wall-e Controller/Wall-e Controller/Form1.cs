@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Wall_e_Controller
 {
@@ -21,16 +22,16 @@ namespace Wall_e_Controller
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            arduinoComLabel.Text = Functions.GetSettingValue("arduino-com");
-            rpiIPLabel.Text = Functions.GetSettingValue("ip-address");
+            ArduinoComLabel.Text = Functions.GetSettingValue("arduino-com");
+            RPiIPLabel.Text = Functions.GetSettingValue("ip-address");
         }
 
         private void connectButton_Click(object sender, EventArgs e)
         {
-            arduinoStatusLabel.Text = "inactive";
-            arduinoStatusLabel.ForeColor = Color.Red;
-            rpiStatusLabel.Text = "inactive";
-            rpiStatusLabel.ForeColor = Color.Red;
+            ArduinoStatusLabel.Text = "inactive";
+            ArduinoStatusLabel.ForeColor = Color.Red;
+            RPiStatusLabel.Text = "inactive";
+            RPiStatusLabel.ForeColor = Color.Red;
 
             Task.Factory.StartNew(() =>
             {
@@ -55,8 +56,8 @@ namespace Wall_e_Controller
         {
             DialogResult settings = new settingsForm().ShowDialog();
 
-            arduinoComLabel.Text = Functions.GetSettingValue("arduino-com");
-            rpiIPLabel.Text = Functions.GetSettingValue("ip-address");
+            ArduinoComLabel.Text = Functions.GetSettingValue("arduino-com");
+            RPiIPLabel.Text = Functions.GetSettingValue("ip-address");
         }
 
         void ReceiveBytes(object sender, SerialDataReceivedEventArgs e)
@@ -66,10 +67,10 @@ namespace Wall_e_Controller
 
             if (received.Contains((byte)0))
             {
-                arduinoStatusLabel.BeginInvoke((MethodInvoker)delegate ()
+                ArduinoStatusLabel.BeginInvoke((MethodInvoker)delegate ()
                 {
-                    arduinoStatusLabel.Text = "active";
-                    arduinoStatusLabel.ForeColor = Color.Green;
+                    ArduinoStatusLabel.Text = "active";
+                    ArduinoStatusLabel.ForeColor = Color.Green;
                 });
             }
         }
@@ -81,6 +82,29 @@ namespace Wall_e_Controller
                 port.Write(sendData, 0, sendData.Length);
             }
             catch { }
+        }
+
+        void WriteLogLine(string logMessage)
+        {
+            BeginInvoke((MethodInvoker)delegate ()
+            {
+                int selectionStart = LogTextBox.SelectionStart;
+                int selectionLength = LogTextBox.SelectionLength;
+
+                LogTextBox.AppendText(logMessage + Environment.NewLine);
+
+                if (LogTextBox.Focused)
+                {
+                    LogTextBox.SelectionStart = selectionStart;
+                    LogTextBox.SelectionLength = 0;
+                    LogTextBox.ScrollToCaret();
+                    LogTextBox.SelectionLength = selectionLength;
+                }
+                else
+                {
+                    LogTextBox.SelectionStart = LogTextBox.Text.Length;
+                }
+            });
         }
 
         bool forward = false;
@@ -137,13 +161,13 @@ namespace Wall_e_Controller
                 bellyOpen = !bellyOpen;
                 if (bellyOpen)
                 {
-                    Console.WriteLine("Opening belly");
+                    WriteLogLine("Opening belly");
                     byte[] servoArray = { 101, 100, 150, 20, 4 };
                     SetSpeeds(servoArray);
                 }
                 else
                 {
-                    Console.WriteLine("Closing belly");
+                    WriteLogLine("Closing belly");
                     byte[] servoArray = { 101, 100, 50, 20, 4 };
                     SetSpeeds(servoArray);
                 }
@@ -304,9 +328,9 @@ namespace Wall_e_Controller
                     setSpeed = 0;
             }
 
-            speedLabel.Text = "Power: " + setSpeed.ToString();
-            Console.WriteLine(speedLabel.Location);
-            speedLabel.ForeColor = Color.White;
+            PowerLabel.Text = "Power: " + setSpeed.ToString();
+            Console.WriteLine(PowerLabel.Location);
+            PowerLabel.ForeColor = Color.White;
         }
 
 
@@ -317,8 +341,8 @@ namespace Wall_e_Controller
         {
             if (UpdateTask.Status != TaskStatus.Running)
             {
-                rpiStatusLabel.Text = "active";
-                rpiStatusLabel.ForeColor = Color.Green;
+                RPiStatusLabel.Text = "active";
+                RPiStatusLabel.ForeColor = Color.Green;
 
                 UpdateTask = Task.Factory.StartNew(() =>
                 {
@@ -333,25 +357,24 @@ namespace Wall_e_Controller
                         }
                         catch
                         {
-                            rpiStatusLabel.BeginInvoke((MethodInvoker)delegate ()
+                            BeginInvoke((MethodInvoker)delegate ()
                             {
-                                rpiStatusLabel.Text = "inactive";
-                                rpiStatusLabel.ForeColor = Color.Red;
+                                RPiStatusLabel.Text = "inactive";
+                                RPiStatusLabel.ForeColor = Color.Red;
                             });
 
-                            Console.WriteLine("Image data unreachable");
+                            WriteLogLine("ERROR: Image data unreachable");
                             break;
-
                         }
 
                         try
                         {
                             Image img = Image.FromStream(new MemoryStream(image));
-                            camView.BeginInvoke((MethodInvoker)delegate () { camView.Image = img; });
+                            CamView.BeginInvoke((MethodInvoker)delegate () { CamView.Image = img; });
                         }
                         catch
                         {
-                            Console.WriteLine("Invalid image data");
+                            WriteLogLine("ERROR: Invalid image data");
                         }
                     }
                 });
