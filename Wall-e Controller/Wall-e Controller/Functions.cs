@@ -4,66 +4,64 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections;
 
 namespace Wall_e_Controller
 {
     public static class Functions
     {
-
         private static string settingsPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\wall-e\\settings.txt";
+
+        static Dictionary<string, string> settings = new Dictionary<string, string>();
+        static bool loadedSettings = false;
 
         public static string GetSettingValue(string name)
         {
-            string[] settings = File.ReadAllLines(settingsPath);
-
-            foreach (string s in settings)
+            if (!loadedSettings)
             {
-                string[] parts = s.Split(':');
+                string[] settingsFile = File.ReadAllLines(settingsPath);
+                settings = new Dictionary<string, string>();
 
-                if (parts.Length == 2)
+                foreach (string s in settingsFile)
                 {
-                    if (parts[0] == name)
+                    string[] parts = s.Split(':');
+
+                    if (parts.Length == 2)
                     {
-                        return parts[1];
+                        settings.Add(parts[0], parts[1]);
                     }
-                }else
-                {
-                    return null;
                 }
+
+                loadedSettings = true;
             }
 
-            return null;
+            string returnValue;
+            if(!settings.TryGetValue(name, out returnValue)) { returnValue = null; }
+
+            return returnValue;
         }
 
         public static void SetSettingValue(string name, string value)
         {
-            string[] settings = File.ReadAllLines(settingsPath);
-
-            bool found = false;
-            for (int i = 0; i < settings.Length; i++)
+            string tmp;
+            if(settings.TryGetValue(name, out tmp))
             {
-                string[] parts = settings[i].Split(':');
-                if (parts.Length == 2 && parts[0] == name)
-                {
-                    settings[i] = name + ":" + value;
-                    found = true;
-                }
+                settings[name] = value;
+            }
+            else
+            {
+                settings.Add(name, value);
             }
 
-            if (!found)
+            string[] saveSettings = new string[settings.Count];
+            for(int i = 0; i < saveSettings.Length; i++)
             {
-                string[] oldSettings = settings;
-                settings = new string[settings.Length + 1];
-
-                for (int i = 0; i < oldSettings.Length; i++)
-                {
-                    settings[i] = oldSettings[i];
-                }
-
-                settings[settings.Length - 1] = name + ":" + value;
+                KeyValuePair<string, string> setting = settings.ElementAt(i);
+                saveSettings[i] = setting.Key + ":" + setting.Value;
             }
+           
 
-            File.WriteAllLines(settingsPath, settings);
+            File.WriteAllLines(settingsPath, saveSettings);
         }
     }
 }
