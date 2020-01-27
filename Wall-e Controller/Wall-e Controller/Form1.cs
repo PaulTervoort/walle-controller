@@ -120,7 +120,7 @@ namespace Wall_e_Controller
                 right = true;
             }
 
-            if (!threadRunning && allowThreadRun)
+            if (!threadRunning && allowThreadRun && port.IsOpen)
             {
                 new Thread(() =>
                 {
@@ -147,7 +147,6 @@ namespace Wall_e_Controller
                     byte[] servoArray = { 101, 100, 50, 20, 4 };
                     SetSpeeds(servoArray);
                 }
-                
             }
         }
 

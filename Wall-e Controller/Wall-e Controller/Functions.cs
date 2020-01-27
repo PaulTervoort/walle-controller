@@ -43,8 +43,7 @@ namespace Wall_e_Controller
 
         public static void SetSettingValue(string name, string value)
         {
-            string tmp;
-            if(settings.TryGetValue(name, out tmp))
+            if(settings.ContainsKey(name))
             {
                 settings[name] = value;
             }
