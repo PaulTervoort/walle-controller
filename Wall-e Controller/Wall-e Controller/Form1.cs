@@ -10,16 +10,6 @@ using System.IO;
 
 namespace Wall_e_Controller
 {
-    public class CameraWebClient : WebClient
-    {
-        protected override WebRequest GetWebRequest(Uri address)
-        {
-            WebRequest wr = base.GetWebRequest(address);
-            wr.Timeout = 500;
-            return wr;
-        }
-    }
-
     public partial class Form1 : Form
     {
         SerialPort port = new SerialPort();
@@ -367,6 +357,16 @@ namespace Wall_e_Controller
                     }
                 });
             }
+        }
+    }
+
+    public class CameraWebClient : WebClient
+    {
+        protected override WebRequest GetWebRequest(Uri address)
+        {
+            WebRequest wr = base.GetWebRequest(address);
+            wr.Timeout = 500;
+            return wr;
         }
     }
 }
