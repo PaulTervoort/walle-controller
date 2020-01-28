@@ -50,6 +50,8 @@
             this.HorizontalDivider = new System.Windows.Forms.Label();
             this.VerticalDivider = new System.Windows.Forms.Label();
             this.LabelDivider = new System.Windows.Forms.Label();
+            this.IncomingDataResetButton = new System.Windows.Forms.Button();
+            this.LogResetButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CamView)).BeginInit();
             this.PowerBackground.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EqualTextboxSizeContainer)).BeginInit();
@@ -64,7 +66,7 @@
             this.SettingsButton.Location = new System.Drawing.Point(956, 9);
             this.SettingsButton.Name = "SettingsButton";
             this.SettingsButton.Size = new System.Drawing.Size(94, 40);
-            this.SettingsButton.TabIndex = 0;
+            this.SettingsButton.TabIndex = 2;
             this.SettingsButton.Text = "Settings";
             this.SettingsButton.UseVisualStyleBackColor = true;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
@@ -74,42 +76,42 @@
             this.ArduinoComTitleLabel.AutoSize = true;
             this.ArduinoComTitleLabel.Location = new System.Drawing.Point(12, 9);
             this.ArduinoComTitleLabel.Name = "ArduinoComTitleLabel";
-            this.ArduinoComTitleLabel.Size = new System.Drawing.Size(96, 17);
+            this.ArduinoComTitleLabel.Size = new System.Drawing.Size(130, 17);
             this.ArduinoComTitleLabel.TabIndex = 2;
-            this.ArduinoComTitleLabel.Text = "Arduino COM:";
+            this.ArduinoComTitleLabel.Text = "Send Module COM:";
             // 
             // RPiIPTitleLabel
             // 
             this.RPiIPTitleLabel.AutoSize = true;
             this.RPiIPTitleLabel.Location = new System.Drawing.Point(12, 26);
             this.RPiIPTitleLabel.Name = "RPiIPTitleLabel";
-            this.RPiIPTitleLabel.Size = new System.Drawing.Size(106, 17);
+            this.RPiIPTitleLabel.Size = new System.Drawing.Size(125, 17);
             this.RPiIPTitleLabel.TabIndex = 3;
-            this.RPiIPTitleLabel.Text = "RPi IP Address:";
+            this.RPiIPTitleLabel.Text = "Wall-E IP Address:";
             // 
             // ArduinoStatusTitleLabel
             // 
             this.ArduinoStatusTitleLabel.AutoSize = true;
             this.ArduinoStatusTitleLabel.Location = new System.Drawing.Point(272, 9);
             this.ArduinoStatusTitleLabel.Name = "ArduinoStatusTitleLabel";
-            this.ArduinoStatusTitleLabel.Size = new System.Drawing.Size(103, 17);
+            this.ArduinoStatusTitleLabel.Size = new System.Drawing.Size(139, 17);
             this.ArduinoStatusTitleLabel.TabIndex = 4;
-            this.ArduinoStatusTitleLabel.Text = "Arduino status:";
+            this.ArduinoStatusTitleLabel.Text = "Send Module Status:";
             // 
             // RPiStatusTitleLabel
             // 
             this.RPiStatusTitleLabel.AutoSize = true;
             this.RPiStatusTitleLabel.Location = new System.Drawing.Point(272, 26);
             this.RPiStatusTitleLabel.Name = "RPiStatusTitleLabel";
-            this.RPiStatusTitleLabel.Size = new System.Drawing.Size(78, 17);
+            this.RPiStatusTitleLabel.Size = new System.Drawing.Size(150, 17);
             this.RPiStatusTitleLabel.TabIndex = 5;
-            this.RPiStatusTitleLabel.Text = "RPi Status:";
+            this.RPiStatusTitleLabel.Text = "Wall-E Camera Status:";
             // 
             // RPiStatusLabel
             // 
             this.RPiStatusLabel.AutoSize = true;
             this.RPiStatusLabel.ForeColor = System.Drawing.Color.Red;
-            this.RPiStatusLabel.Location = new System.Drawing.Point(384, 26);
+            this.RPiStatusLabel.Location = new System.Drawing.Point(428, 26);
             this.RPiStatusLabel.Name = "RPiStatusLabel";
             this.RPiStatusLabel.Size = new System.Drawing.Size(56, 17);
             this.RPiStatusLabel.TabIndex = 9;
@@ -119,7 +121,7 @@
             // 
             this.ArduinoStatusLabel.AutoSize = true;
             this.ArduinoStatusLabel.ForeColor = System.Drawing.Color.Red;
-            this.ArduinoStatusLabel.Location = new System.Drawing.Point(384, 9);
+            this.ArduinoStatusLabel.Location = new System.Drawing.Point(428, 9);
             this.ArduinoStatusLabel.Name = "ArduinoStatusLabel";
             this.ArduinoStatusLabel.Size = new System.Drawing.Size(56, 17);
             this.ArduinoStatusLabel.TabIndex = 8;
@@ -128,7 +130,7 @@
             // RPiIPLabel
             // 
             this.RPiIPLabel.AutoSize = true;
-            this.RPiIPLabel.Location = new System.Drawing.Point(124, 26);
+            this.RPiIPLabel.Location = new System.Drawing.Point(148, 26);
             this.RPiIPLabel.Name = "RPiIPLabel";
             this.RPiIPLabel.Size = new System.Drawing.Size(84, 17);
             this.RPiIPLabel.TabIndex = 7;
@@ -137,7 +139,7 @@
             // ArduinoComLabel
             // 
             this.ArduinoComLabel.AutoSize = true;
-            this.ArduinoComLabel.Location = new System.Drawing.Point(124, 9);
+            this.ArduinoComLabel.Location = new System.Drawing.Point(148, 9);
             this.ArduinoComLabel.Name = "ArduinoComLabel";
             this.ArduinoComLabel.Size = new System.Drawing.Size(47, 17);
             this.ArduinoComLabel.TabIndex = 6;
@@ -149,7 +151,7 @@
             this.ConnectButton.Location = new System.Drawing.Point(756, 9);
             this.ConnectButton.Name = "ConnectButton";
             this.ConnectButton.Size = new System.Drawing.Size(94, 40);
-            this.ConnectButton.TabIndex = 10;
+            this.ConnectButton.TabIndex = 0;
             this.ConnectButton.Text = "Connect";
             this.ConnectButton.UseVisualStyleBackColor = true;
             this.ConnectButton.Click += new System.EventHandler(this.ConnectButton_Click);
@@ -172,7 +174,7 @@
             this.AtButton.Location = new System.Drawing.Point(856, 9);
             this.AtButton.Name = "AtButton";
             this.AtButton.Size = new System.Drawing.Size(94, 40);
-            this.AtButton.TabIndex = 12;
+            this.AtButton.TabIndex = 1;
             this.AtButton.Text = "AT-Console";
             this.AtButton.UseVisualStyleBackColor = true;
             this.AtButton.Click += new System.EventHandler(this.AtButton_Click);
@@ -205,13 +207,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.IncomingDataTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.IncomingDataTextBox.Location = new System.Drawing.Point(0, 20);
+            this.IncomingDataTextBox.Location = new System.Drawing.Point(0, 22);
             this.IncomingDataTextBox.Multiline = true;
             this.IncomingDataTextBox.Name = "IncomingDataTextBox";
             this.IncomingDataTextBox.ReadOnly = true;
             this.IncomingDataTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.IncomingDataTextBox.Size = new System.Drawing.Size(294, 203);
+            this.IncomingDataTextBox.Size = new System.Drawing.Size(294, 202);
             this.IncomingDataTextBox.TabIndex = 14;
+            this.IncomingDataTextBox.TabStop = false;
             // 
             // EqualTextboxSizeContainer
             // 
@@ -224,21 +227,24 @@
             // 
             // EqualTextboxSizeContainer.Panel1
             // 
+            this.EqualTextboxSizeContainer.Panel1.Controls.Add(this.IncomingDataResetButton);
             this.EqualTextboxSizeContainer.Panel1.Controls.Add(this.IncomingDataTextBoxTitle);
             this.EqualTextboxSizeContainer.Panel1.Controls.Add(this.IncomingDataTextBox);
             // 
             // EqualTextboxSizeContainer.Panel2
             // 
+            this.EqualTextboxSizeContainer.Panel2.Controls.Add(this.LogResetButton);
             this.EqualTextboxSizeContainer.Panel2.Controls.Add(this.LogTextBoxTitle);
             this.EqualTextboxSizeContainer.Panel2.Controls.Add(this.LogTextBox);
             this.EqualTextboxSizeContainer.Size = new System.Drawing.Size(294, 454);
             this.EqualTextboxSizeContainer.SplitterDistance = 225;
             this.EqualTextboxSizeContainer.TabIndex = 15;
+            this.EqualTextboxSizeContainer.TabStop = false;
             // 
             // IncomingDataTextBoxTitle
             // 
             this.IncomingDataTextBoxTitle.AutoSize = true;
-            this.IncomingDataTextBoxTitle.Location = new System.Drawing.Point(0, 0);
+            this.IncomingDataTextBoxTitle.Location = new System.Drawing.Point(-3, 2);
             this.IncomingDataTextBoxTitle.Name = "IncomingDataTextBoxTitle";
             this.IncomingDataTextBoxTitle.Size = new System.Drawing.Size(102, 17);
             this.IncomingDataTextBoxTitle.TabIndex = 20;
@@ -247,7 +253,7 @@
             // LogTextBoxTitle
             // 
             this.LogTextBoxTitle.AutoSize = true;
-            this.LogTextBoxTitle.Location = new System.Drawing.Point(0, 0);
+            this.LogTextBoxTitle.Location = new System.Drawing.Point(-3, 3);
             this.LogTextBoxTitle.Name = "LogTextBoxTitle";
             this.LogTextBoxTitle.Size = new System.Drawing.Size(101, 17);
             this.LogTextBoxTitle.TabIndex = 21;
@@ -259,13 +265,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LogTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.LogTextBox.Location = new System.Drawing.Point(0, 20);
+            this.LogTextBox.Location = new System.Drawing.Point(0, 23);
             this.LogTextBox.Multiline = true;
             this.LogTextBox.Name = "LogTextBox";
             this.LogTextBox.ReadOnly = true;
             this.LogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LogTextBox.Size = new System.Drawing.Size(294, 203);
+            this.LogTextBox.Size = new System.Drawing.Size(294, 202);
             this.LogTextBox.TabIndex = 15;
+            this.LogTextBox.TabStop = false;
             // 
             // HorizontalDivider
             // 
@@ -295,6 +302,28 @@
             this.LabelDivider.Size = new System.Drawing.Size(2, 41);
             this.LabelDivider.TabIndex = 19;
             // 
+            // IncomingDataResetButton
+            // 
+            this.IncomingDataResetButton.Location = new System.Drawing.Point(220, -1);
+            this.IncomingDataResetButton.Name = "IncomingDataResetButton";
+            this.IncomingDataResetButton.Size = new System.Drawing.Size(75, 23);
+            this.IncomingDataResetButton.TabIndex = 20;
+            this.IncomingDataResetButton.TabStop = false;
+            this.IncomingDataResetButton.Text = "Reset";
+            this.IncomingDataResetButton.UseVisualStyleBackColor = true;
+            this.IncomingDataResetButton.Click += new System.EventHandler(this.IncomingDataResetButton_Click);
+            // 
+            // LogResetButton
+            // 
+            this.LogResetButton.Location = new System.Drawing.Point(220, 0);
+            this.LogResetButton.Name = "LogResetButton";
+            this.LogResetButton.Size = new System.Drawing.Size(75, 23);
+            this.LogResetButton.TabIndex = 21;
+            this.LogResetButton.TabStop = false;
+            this.LogResetButton.Text = "Reset";
+            this.LogResetButton.UseVisualStyleBackColor = true;
+            this.LogResetButton.Click += new System.EventHandler(this.LogResetButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -318,9 +347,9 @@
             this.Controls.Add(this.ArduinoComTitleLabel);
             this.Controls.Add(this.SettingsButton);
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(780, 390);
+            this.MinimumSize = new System.Drawing.Size(810, 390);
             this.Name = "MainForm";
-            this.Text = "Wall-e Controller";
+            this.Text = "Wall-E Controller";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
@@ -363,6 +392,8 @@
         private System.Windows.Forms.Label LabelDivider;
         private System.Windows.Forms.Label IncomingDataTextBoxTitle;
         private System.Windows.Forms.Label LogTextBoxTitle;
+        private System.Windows.Forms.Button IncomingDataResetButton;
+        private System.Windows.Forms.Button LogResetButton;
     }
 }
 

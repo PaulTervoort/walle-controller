@@ -40,11 +40,16 @@ namespace Wall_e_Controller
             {
                 try
                 {
-                    if (port.IsOpen) { port.Close(); }
+                    if (!port.IsOpen)
+                    {
+                        disconnectComPort = DisconnectComPort;
 
-                    port = new SerialPort(Functions.GetSettingValue("arduino-com"));
-                    port.DataReceived += new SerialDataReceivedEventHandler(ReceiveBytes);
-                    port.Open();
+                        port = new SerialPort(Functions.GetSettingValue("arduino-com"));
+                        port.DataReceived += new SerialDataReceivedEventHandler(ReceiveBytes);
+                        port.ErrorReceived += new SerialErrorReceivedEventHandler(SerialError);
+                        port.WriteTimeout = 200;
+                        port.Open();
+                    }
 
                     byte[] test = { 0 };
                     SendBytes(test);
@@ -73,7 +78,7 @@ namespace Wall_e_Controller
 
         private void SettingsButton_Click(object sender, EventArgs e)
         {
-            DialogResult settings = new settingsForm().ShowDialog();
+            DialogResult settings = new SettingsForm().ShowDialog();
 
             ArduinoComLabel.Text = Functions.GetSettingValue("arduino-com");
             RPiIPLabel.Text = Functions.GetSettingValue("ip-address");
@@ -90,10 +95,10 @@ namespace Wall_e_Controller
 
             if (received.Contains((byte)0))
             {
+                arduinoConnection = true;
+
                 ArduinoStatusLabel.BeginInvoke((MethodInvoker)delegate ()
                 {
-                    arduinoConnection = true;
-
                     ArduinoStatusLabel.Text = "active";
                     ArduinoStatusLabel.ForeColor = Color.Green;
                 });
@@ -102,32 +107,42 @@ namespace Wall_e_Controller
             {
                 foreach (byte b in received)
                 {
-                    int selectionStart = IncomingDataTextBox.SelectionStart;
-                    int selectionLength = IncomingDataTextBox.SelectionLength;
-
-                    IncomingDataTextBox.AppendText(b.ToString() + ",");
-                    if (b == 4) { IncomingDataTextBox.AppendText(Environment.NewLine); }
-                    
-                    if (IncomingDataTextBox.Focused)
+                    BeginInvoke((MethodInvoker)delegate ()
                     {
-                        IncomingDataTextBox.SelectionStart = selectionStart;
-                        IncomingDataTextBox.SelectionLength = 0;
-                        IncomingDataTextBox.ScrollToCaret();
-                        IncomingDataTextBox.SelectionLength = selectionLength;
-                    }
-                    else
-                    {
-                        IncomingDataTextBox.SelectionStart = IncomingDataTextBox.Text.Length;
-                    }
+                        int selectionStart = IncomingDataTextBox.SelectionStart;
+                        int selectionLength = IncomingDataTextBox.SelectionLength;
 
-                    if(b == 2)
+                        IncomingDataTextBox.AppendText(b.ToString());
+                        if (b == 4 || b == 2 || b == 1 || b == 0)
+                        {
+                            IncomingDataTextBox.AppendText(Environment.NewLine);
+                        }
+                        else
+                        {
+                            IncomingDataTextBox.AppendText(",");
+                        }
+
+                        if (IncomingDataTextBox.Focused)
+                        {
+                            IncomingDataTextBox.SelectionStart = selectionStart;
+                            IncomingDataTextBox.SelectionLength = 0;
+                            IncomingDataTextBox.ScrollToCaret();
+                            IncomingDataTextBox.SelectionLength = selectionLength;
+                        }
+                        else
+                        {
+                            IncomingDataTextBox.SelectionStart = IncomingDataTextBox.Text.Length;
+                        }
+                    });
+
+                    if(b == 2 || b == 1)
                     {
                         atMessageBuild = !atMessageBuild;
                         if (!atMessageBuild)
                         {
                             if (atConsole.Visible)
                             {
-                                atConsole.WriteIncomingATMessage(atMessage);
+                                atConsole.WriteIncomingATMessage(b==1?">":"<" + atMessage);
                             }
                             atMessage = "";
                         }
@@ -143,6 +158,7 @@ namespace Wall_e_Controller
             }
         }
 
+        static Action disconnectComPort;
         static void SendBytes(byte[] sendData)
         {
             if (port.IsOpen)
@@ -151,7 +167,28 @@ namespace Wall_e_Controller
                 {
                     port.Write(sendData, 0, sendData.Length);
                 }
-                catch { }
+                catch
+                {
+                    disconnectComPort();
+                }
+            }
+        }
+
+        void SerialError(object sender, SerialErrorReceivedEventArgs e)
+        {
+            DisconnectComPort();
+        }
+
+        void DisconnectComPort()
+        {
+            if (arduinoConnection)
+            {
+                WriteLogLine("ERROR: Send module connection lost");
+                port.Close();
+                arduinoConnection = false;
+
+                ArduinoStatusLabel.Text = "inactive";
+                ArduinoStatusLabel.ForeColor = Color.Red;
             }
         }
 
@@ -176,6 +213,16 @@ namespace Wall_e_Controller
                     LogTextBox.SelectionStart = LogTextBox.Text.Length;
                 }
             });
+        }
+
+        private void IncomingDataResetButton_Click(object sender, EventArgs e)
+        {
+            IncomingDataTextBox.Text = "";
+        }
+
+        private void LogResetButton_Click(object sender, EventArgs e)
+        {
+            LogTextBox.Text = "";
         }
 
 
@@ -404,15 +451,29 @@ namespace Wall_e_Controller
         {
             if (UpdateTask.Status != TaskStatus.Running)
             {
-                RPiStatusLabel.Text = "active";
-                RPiStatusLabel.ForeColor = Color.Green;
-
                 UpdateTask = Task.Factory.StartNew(() =>
                 {
                     CameraWebClient client = new CameraWebClient();
                     byte[] image = new byte[0];
 
-                    while (true)
+                    bool startLoop = false;
+                    try
+                    {
+                        image = client.DownloadData(new Uri("http://" + Functions.GetSettingValue("ip-address") + "/cam/cam_pic.php"));
+                        startLoop = true;
+
+                        BeginInvoke((MethodInvoker)delegate ()
+                        {
+                            RPiStatusLabel.Text = "active";
+                            RPiStatusLabel.ForeColor = Color.Green;
+                        });
+                    }
+                    catch
+                    {
+                        WriteLogLine("ERROR: Video source unreachable");
+                    }
+
+                    while (startLoop)
                     {
                         try
                         {
@@ -426,7 +487,7 @@ namespace Wall_e_Controller
                                 RPiStatusLabel.ForeColor = Color.Red;
                             });
 
-                            WriteLogLine("ERROR: Video source unreachable");
+                            WriteLogLine("ERROR: Video connection lost");
                             break;
                         }
 

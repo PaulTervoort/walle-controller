@@ -1,6 +1,6 @@
 ﻿namespace Wall_e_Controller
 {
-    partial class settingsForm
+    partial class SettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,62 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.arduinoComTitleLabel = new System.Windows.Forms.Label();
-            this.comBox = new System.Windows.Forms.ComboBox();
-            this.rpiIPTitleLabel = new System.Windows.Forms.Label();
+            this.ArduinoComTitleLabel = new System.Windows.Forms.Label();
+            this.ComBox = new System.Windows.Forms.ComboBox();
+            this.RPiIPTitleLabel = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.rpiIPOne = new System.Windows.Forms.NumericUpDown();
-            this.rpiIPFour = new System.Windows.Forms.NumericUpDown();
-            this.rpiIPThree = new System.Windows.Forms.NumericUpDown();
-            this.rpiIPTwo = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.leftMotorOffset = new System.Windows.Forms.NumericUpDown();
-            this.rightMotorOffset = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.closeButton = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.inverseSteering = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.rpiIPOne)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rpiIPFour)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rpiIPThree)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rpiIPTwo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftMotorOffset)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rightMotorOffset)).BeginInit();
+            this.RPiIPOne = new System.Windows.Forms.NumericUpDown();
+            this.RPiIPFour = new System.Windows.Forms.NumericUpDown();
+            this.RPiIPThree = new System.Windows.Forms.NumericUpDown();
+            this.RPiIPTwo = new System.Windows.Forms.NumericUpDown();
+            this.CommunicationSettingsLabel = new System.Windows.Forms.Label();
+            this.MotorSettingsLabel = new System.Windows.Forms.Label();
+            this.LeftMotorOffsetLabel = new System.Windows.Forms.Label();
+            this.LeftMotorOffset = new System.Windows.Forms.NumericUpDown();
+            this.RightMotorOffset = new System.Windows.Forms.NumericUpDown();
+            this.RightMotorOffsetLabel = new System.Windows.Forms.Label();
+            this.ApplyButton = new System.Windows.Forms.Button();
+            this.SteeringSettingsLabel = new System.Windows.Forms.Label();
+            this.InverseSteering = new System.Windows.Forms.CheckBox();
+            this.InverseSteeringLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.RPiIPOne)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RPiIPFour)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RPiIPThree)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RPiIPTwo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LeftMotorOffset)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RightMotorOffset)).BeginInit();
             this.SuspendLayout();
             // 
-            // arduinoComTitleLabel
+            // ArduinoComTitleLabel
             // 
-            this.arduinoComTitleLabel.AutoSize = true;
-            this.arduinoComTitleLabel.Location = new System.Drawing.Point(12, 33);
-            this.arduinoComTitleLabel.Name = "arduinoComTitleLabel";
-            this.arduinoComTitleLabel.Size = new System.Drawing.Size(96, 17);
-            this.arduinoComTitleLabel.TabIndex = 0;
-            this.arduinoComTitleLabel.Text = "Arduino COM:";
+            this.ArduinoComTitleLabel.AutoSize = true;
+            this.ArduinoComTitleLabel.Location = new System.Drawing.Point(12, 33);
+            this.ArduinoComTitleLabel.Name = "ArduinoComTitleLabel";
+            this.ArduinoComTitleLabel.Size = new System.Drawing.Size(130, 17);
+            this.ArduinoComTitleLabel.TabIndex = 0;
+            this.ArduinoComTitleLabel.Text = "Send Module COM:";
             // 
-            // comBox
+            // ComBox
             // 
-            this.comBox.FormattingEnabled = true;
-            this.comBox.Location = new System.Drawing.Point(227, 30);
-            this.comBox.Name = "comBox";
-            this.comBox.Size = new System.Drawing.Size(214, 24);
-            this.comBox.TabIndex = 1;
+            this.ComBox.FormattingEnabled = true;
+            this.ComBox.Location = new System.Drawing.Point(227, 30);
+            this.ComBox.Name = "ComBox";
+            this.ComBox.Size = new System.Drawing.Size(214, 24);
+            this.ComBox.TabIndex = 1;
             // 
-            // rpiIPTitleLabel
+            // RPiIPTitleLabel
             // 
-            this.rpiIPTitleLabel.AutoSize = true;
-            this.rpiIPTitleLabel.Location = new System.Drawing.Point(12, 62);
-            this.rpiIPTitleLabel.Name = "rpiIPTitleLabel";
-            this.rpiIPTitleLabel.Size = new System.Drawing.Size(110, 17);
-            this.rpiIPTitleLabel.TabIndex = 2;
-            this.rpiIPTitleLabel.Text = "Raspberry Pi IP:";
+            this.RPiIPTitleLabel.AutoSize = true;
+            this.RPiIPTitleLabel.Location = new System.Drawing.Point(12, 62);
+            this.RPiIPTitleLabel.Name = "RPiIPTitleLabel";
+            this.RPiIPTitleLabel.Size = new System.Drawing.Size(117, 17);
+            this.RPiIPTitleLabel.TabIndex = 2;
+            this.RPiIPTitleLabel.Text = "Wall-E IP Adress:";
             // 
             // textBox1
             // 
@@ -133,182 +133,182 @@
             this.label4.TabIndex = 10;
             this.label4.Text = ".";
             // 
-            // rpiIPOne
+            // RPiIPOne
             // 
-            this.rpiIPOne.Location = new System.Drawing.Point(227, 62);
-            this.rpiIPOne.Maximum = new decimal(new int[] {
+            this.RPiIPOne.Location = new System.Drawing.Point(227, 62);
+            this.RPiIPOne.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
-            this.rpiIPOne.Name = "rpiIPOne";
-            this.rpiIPOne.Size = new System.Drawing.Size(48, 22);
-            this.rpiIPOne.TabIndex = 11;
+            this.RPiIPOne.Name = "RPiIPOne";
+            this.RPiIPOne.Size = new System.Drawing.Size(48, 22);
+            this.RPiIPOne.TabIndex = 11;
             // 
-            // rpiIPFour
+            // RPiIPFour
             // 
-            this.rpiIPFour.Location = new System.Drawing.Point(393, 62);
-            this.rpiIPFour.Maximum = new decimal(new int[] {
+            this.RPiIPFour.Location = new System.Drawing.Point(393, 62);
+            this.RPiIPFour.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
-            this.rpiIPFour.Name = "rpiIPFour";
-            this.rpiIPFour.Size = new System.Drawing.Size(48, 22);
-            this.rpiIPFour.TabIndex = 14;
+            this.RPiIPFour.Name = "RPiIPFour";
+            this.RPiIPFour.Size = new System.Drawing.Size(48, 22);
+            this.RPiIPFour.TabIndex = 14;
             // 
-            // rpiIPThree
+            // RPiIPThree
             // 
-            this.rpiIPThree.Location = new System.Drawing.Point(338, 62);
-            this.rpiIPThree.Maximum = new decimal(new int[] {
+            this.RPiIPThree.Location = new System.Drawing.Point(338, 62);
+            this.RPiIPThree.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
-            this.rpiIPThree.Name = "rpiIPThree";
-            this.rpiIPThree.Size = new System.Drawing.Size(48, 22);
-            this.rpiIPThree.TabIndex = 13;
+            this.RPiIPThree.Name = "RPiIPThree";
+            this.RPiIPThree.Size = new System.Drawing.Size(48, 22);
+            this.RPiIPThree.TabIndex = 13;
             // 
-            // rpiIPTwo
+            // RPiIPTwo
             // 
-            this.rpiIPTwo.Location = new System.Drawing.Point(282, 62);
-            this.rpiIPTwo.Maximum = new decimal(new int[] {
+            this.RPiIPTwo.Location = new System.Drawing.Point(282, 62);
+            this.RPiIPTwo.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
-            this.rpiIPTwo.Name = "rpiIPTwo";
-            this.rpiIPTwo.Size = new System.Drawing.Size(48, 22);
-            this.rpiIPTwo.TabIndex = 12;
+            this.RPiIPTwo.Name = "RPiIPTwo";
+            this.RPiIPTwo.Size = new System.Drawing.Size(48, 22);
+            this.RPiIPTwo.TabIndex = 12;
             // 
-            // label3
+            // CommunicationSettingsLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(181, 17);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Communication Settings";
+            this.CommunicationSettingsLabel.AutoSize = true;
+            this.CommunicationSettingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CommunicationSettingsLabel.Location = new System.Drawing.Point(12, 9);
+            this.CommunicationSettingsLabel.Name = "CommunicationSettingsLabel";
+            this.CommunicationSettingsLabel.Size = new System.Drawing.Size(181, 17);
+            this.CommunicationSettingsLabel.TabIndex = 15;
+            this.CommunicationSettingsLabel.Text = "Communication Settings";
             // 
-            // label5
+            // MotorSettingsLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(12, 98);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(113, 17);
-            this.label5.TabIndex = 16;
-            this.label5.Text = "Motor Settings";
+            this.MotorSettingsLabel.AutoSize = true;
+            this.MotorSettingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MotorSettingsLabel.Location = new System.Drawing.Point(12, 98);
+            this.MotorSettingsLabel.Name = "MotorSettingsLabel";
+            this.MotorSettingsLabel.Size = new System.Drawing.Size(113, 17);
+            this.MotorSettingsLabel.TabIndex = 16;
+            this.MotorSettingsLabel.Text = "Motor Settings";
             // 
-            // label6
+            // LeftMotorOffsetLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 120);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(118, 17);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "Left Motor Offset:";
+            this.LeftMotorOffsetLabel.AutoSize = true;
+            this.LeftMotorOffsetLabel.Location = new System.Drawing.Point(12, 120);
+            this.LeftMotorOffsetLabel.Name = "LeftMotorOffsetLabel";
+            this.LeftMotorOffsetLabel.Size = new System.Drawing.Size(118, 17);
+            this.LeftMotorOffsetLabel.TabIndex = 17;
+            this.LeftMotorOffsetLabel.Text = "Left Motor Offset:";
             // 
-            // leftMotorOffset
+            // LeftMotorOffset
             // 
-            this.leftMotorOffset.Location = new System.Drawing.Point(227, 120);
-            this.leftMotorOffset.Name = "leftMotorOffset";
-            this.leftMotorOffset.Size = new System.Drawing.Size(214, 22);
-            this.leftMotorOffset.TabIndex = 18;
+            this.LeftMotorOffset.Location = new System.Drawing.Point(227, 120);
+            this.LeftMotorOffset.Name = "LeftMotorOffset";
+            this.LeftMotorOffset.Size = new System.Drawing.Size(214, 22);
+            this.LeftMotorOffset.TabIndex = 18;
             // 
-            // rightMotorOffset
+            // RightMotorOffset
             // 
-            this.rightMotorOffset.Location = new System.Drawing.Point(227, 149);
-            this.rightMotorOffset.Name = "rightMotorOffset";
-            this.rightMotorOffset.Size = new System.Drawing.Size(214, 22);
-            this.rightMotorOffset.TabIndex = 20;
+            this.RightMotorOffset.Location = new System.Drawing.Point(227, 149);
+            this.RightMotorOffset.Name = "RightMotorOffset";
+            this.RightMotorOffset.Size = new System.Drawing.Size(214, 22);
+            this.RightMotorOffset.TabIndex = 20;
             // 
-            // label7
+            // RightMotorOffsetLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 149);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(127, 17);
-            this.label7.TabIndex = 19;
-            this.label7.Text = "Right Motor Offset:";
+            this.RightMotorOffsetLabel.AutoSize = true;
+            this.RightMotorOffsetLabel.Location = new System.Drawing.Point(12, 149);
+            this.RightMotorOffsetLabel.Name = "RightMotorOffsetLabel";
+            this.RightMotorOffsetLabel.Size = new System.Drawing.Size(127, 17);
+            this.RightMotorOffsetLabel.TabIndex = 19;
+            this.RightMotorOffsetLabel.Text = "Right Motor Offset:";
             // 
-            // closeButton
+            // ApplyButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(175, 254);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(102, 37);
-            this.closeButton.TabIndex = 21;
-            this.closeButton.Text = "Close";
-            this.closeButton.UseVisualStyleBackColor = true;
-            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            this.ApplyButton.Location = new System.Drawing.Point(151, 260);
+            this.ApplyButton.Name = "ApplyButton";
+            this.ApplyButton.Size = new System.Drawing.Size(151, 37);
+            this.ApplyButton.TabIndex = 21;
+            this.ApplyButton.Text = "Apply Changes";
+            this.ApplyButton.UseVisualStyleBackColor = true;
+            this.ApplyButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
-            // label8
+            // SteeringSettingsLabel
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(12, 185);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(133, 17);
-            this.label8.TabIndex = 22;
-            this.label8.Text = "Steering Settings";
+            this.SteeringSettingsLabel.AutoSize = true;
+            this.SteeringSettingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SteeringSettingsLabel.Location = new System.Drawing.Point(12, 185);
+            this.SteeringSettingsLabel.Name = "SteeringSettingsLabel";
+            this.SteeringSettingsLabel.Size = new System.Drawing.Size(133, 17);
+            this.SteeringSettingsLabel.TabIndex = 22;
+            this.SteeringSettingsLabel.Text = "Steering Settings";
             // 
-            // inverseSteering
+            // InverseSteering
             // 
-            this.inverseSteering.AutoSize = true;
-            this.inverseSteering.Location = new System.Drawing.Point(423, 207);
-            this.inverseSteering.Name = "inverseSteering";
-            this.inverseSteering.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.inverseSteering.Size = new System.Drawing.Size(18, 17);
-            this.inverseSteering.TabIndex = 23;
-            this.inverseSteering.UseVisualStyleBackColor = true;
+            this.InverseSteering.AutoSize = true;
+            this.InverseSteering.Location = new System.Drawing.Point(423, 207);
+            this.InverseSteering.Name = "InverseSteering";
+            this.InverseSteering.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.InverseSteering.Size = new System.Drawing.Size(18, 17);
+            this.InverseSteering.TabIndex = 23;
+            this.InverseSteering.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // InverseSteeringLabel
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 207);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(115, 17);
-            this.label9.TabIndex = 24;
-            this.label9.Text = "Inverse Steering:";
+            this.InverseSteeringLabel.AutoSize = true;
+            this.InverseSteeringLabel.Location = new System.Drawing.Point(12, 207);
+            this.InverseSteeringLabel.Name = "InverseSteeringLabel";
+            this.InverseSteeringLabel.Size = new System.Drawing.Size(115, 17);
+            this.InverseSteeringLabel.TabIndex = 24;
+            this.InverseSteeringLabel.Text = "Inverse Steering:";
             // 
-            // settingsForm
+            // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(453, 309);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.inverseSteering);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.rightMotorOffset);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.leftMotorOffset);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.rpiIPTwo);
-            this.Controls.Add(this.rpiIPThree);
-            this.Controls.Add(this.rpiIPFour);
-            this.Controls.Add(this.rpiIPOne);
-            this.Controls.Add(this.rpiIPTitleLabel);
-            this.Controls.Add(this.comBox);
-            this.Controls.Add(this.arduinoComTitleLabel);
+            this.Controls.Add(this.InverseSteeringLabel);
+            this.Controls.Add(this.InverseSteering);
+            this.Controls.Add(this.SteeringSettingsLabel);
+            this.Controls.Add(this.ApplyButton);
+            this.Controls.Add(this.RightMotorOffset);
+            this.Controls.Add(this.RightMotorOffsetLabel);
+            this.Controls.Add(this.LeftMotorOffset);
+            this.Controls.Add(this.LeftMotorOffsetLabel);
+            this.Controls.Add(this.MotorSettingsLabel);
+            this.Controls.Add(this.CommunicationSettingsLabel);
+            this.Controls.Add(this.RPiIPTwo);
+            this.Controls.Add(this.RPiIPThree);
+            this.Controls.Add(this.RPiIPFour);
+            this.Controls.Add(this.RPiIPOne);
+            this.Controls.Add(this.RPiIPTitleLabel);
+            this.Controls.Add(this.ComBox);
+            this.Controls.Add(this.ArduinoComTitleLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "settingsForm";
-            this.Text = "Wall-e Settings";
+            this.Name = "SettingsForm";
+            this.Text = "Wall-E Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.settingsForm_FormClosing);
             this.Load += new System.EventHandler(this.settingsForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.rpiIPOne)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rpiIPFour)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rpiIPThree)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rpiIPTwo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftMotorOffset)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rightMotorOffset)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RPiIPOne)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RPiIPFour)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RPiIPThree)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RPiIPTwo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LeftMotorOffset)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RightMotorOffset)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -316,28 +316,28 @@
 
         #endregion
 
-        private System.Windows.Forms.Label arduinoComTitleLabel;
-        private System.Windows.Forms.ComboBox comBox;
-        private System.Windows.Forms.Label rpiIPTitleLabel;
+        private System.Windows.Forms.Label ArduinoComTitleLabel;
+        private System.Windows.Forms.ComboBox ComBox;
+        private System.Windows.Forms.Label RPiIPTitleLabel;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown rpiIPOne;
-        private System.Windows.Forms.NumericUpDown rpiIPFour;
-        private System.Windows.Forms.NumericUpDown rpiIPThree;
-        private System.Windows.Forms.NumericUpDown rpiIPTwo;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown leftMotorOffset;
-        private System.Windows.Forms.NumericUpDown rightMotorOffset;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button closeButton;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox inverseSteering;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown RPiIPOne;
+        private System.Windows.Forms.NumericUpDown RPiIPFour;
+        private System.Windows.Forms.NumericUpDown RPiIPThree;
+        private System.Windows.Forms.NumericUpDown RPiIPTwo;
+        private System.Windows.Forms.Label CommunicationSettingsLabel;
+        private System.Windows.Forms.Label MotorSettingsLabel;
+        private System.Windows.Forms.Label LeftMotorOffsetLabel;
+        private System.Windows.Forms.NumericUpDown LeftMotorOffset;
+        private System.Windows.Forms.NumericUpDown RightMotorOffset;
+        private System.Windows.Forms.Label RightMotorOffsetLabel;
+        private System.Windows.Forms.Button ApplyButton;
+        private System.Windows.Forms.Label SteeringSettingsLabel;
+        private System.Windows.Forms.CheckBox InverseSteering;
+        private System.Windows.Forms.Label InverseSteeringLabel;
     }
 }

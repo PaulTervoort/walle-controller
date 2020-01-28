@@ -31,14 +31,18 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.closeButton = new System.Windows.Forms.Button();
             this.CommandTextBox = new System.Windows.Forms.TextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.logTextBox = new System.Windows.Forms.RichTextBox();
+            this.LogTextBoxBorderPanel = new System.Windows.Forms.Panel();
+            this.OutgoingLabel = new System.Windows.Forms.Label();
+            this.WalleLabel = new System.Windows.Forms.Label();
+            this.CommandLabel = new System.Windows.Forms.Label();
+            this.SendModuleLabel = new System.Windows.Forms.Label();
+            this.ChannelButton = new System.Windows.Forms.Button();
+            this.ChannelTextBox = new System.Windows.Forms.TextBox();
+            this.DefaultButton = new System.Windows.Forms.Button();
+            this.InfoButton = new System.Windows.Forms.Button();
+            this.LogTextBoxBorderPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -62,93 +66,137 @@
             this.textBox3.Size = new System.Drawing.Size(100, 22);
             this.textBox3.TabIndex = 0;
             // 
-            // closeButton
-            // 
-            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.closeButton.Location = new System.Drawing.Point(184, 259);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(102, 37);
-            this.closeButton.TabIndex = 21;
-            this.closeButton.Text = "Close";
-            this.closeButton.UseVisualStyleBackColor = true;
-            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
-            // 
             // CommandTextBox
             // 
-            this.CommandTextBox.Location = new System.Drawing.Point(154, 12);
+            this.CommandTextBox.Location = new System.Drawing.Point(151, 12);
             this.CommandTextBox.Name = "CommandTextBox";
-            this.CommandTextBox.Size = new System.Drawing.Size(287, 22);
-            this.CommandTextBox.TabIndex = 22;
+            this.CommandTextBox.Size = new System.Drawing.Size(290, 22);
+            this.CommandTextBox.TabIndex = 0;
             this.CommandTextBox.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.CommandTextBox_PreviewKeyDown);
             // 
-            // richTextBox1
+            // logTextBox
             // 
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(427, 212);
-            this.richTextBox1.TabIndex = 23;
-            this.richTextBox1.Text = "";
+            this.logTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.logTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logTextBox.Location = new System.Drawing.Point(0, 0);
+            this.logTextBox.Name = "logTextBox";
+            this.logTextBox.ReadOnly = true;
+            this.logTextBox.Size = new System.Drawing.Size(427, 209);
+            this.logTextBox.TabIndex = 23;
+            this.logTextBox.TabStop = false;
+            this.logTextBox.Text = "";
             // 
-            // panel1
+            // LogTextBoxBorderPanel
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.richTextBox1);
-            this.panel1.Location = new System.Drawing.Point(12, 40);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(429, 214);
-            this.panel1.TabIndex = 24;
+            this.LogTextBoxBorderPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LogTextBoxBorderPanel.Controls.Add(this.logTextBox);
+            this.LogTextBoxBorderPanel.Location = new System.Drawing.Point(12, 69);
+            this.LogTextBoxBorderPanel.Name = "LogTextBoxBorderPanel";
+            this.LogTextBoxBorderPanel.Size = new System.Drawing.Size(429, 211);
+            this.LogTextBoxBorderPanel.TabIndex = 24;
             // 
-            // label1
+            // OutgoingLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(12, 259);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 17);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "Outgoing";
+            this.OutgoingLabel.AutoSize = true;
+            this.OutgoingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OutgoingLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.OutgoingLabel.Location = new System.Drawing.Point(12, 283);
+            this.OutgoingLabel.Name = "OutgoingLabel";
+            this.OutgoingLabel.Size = new System.Drawing.Size(74, 17);
+            this.OutgoingLabel.TabIndex = 24;
+            this.OutgoingLabel.Text = "Outgoing";
             // 
-            // label2
+            // WalleLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(368, 259);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 17);
-            this.label2.TabIndex = 25;
-            this.label2.Text = "Incoming";
+            this.WalleLabel.AutoSize = true;
+            this.WalleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WalleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.WalleLabel.Location = new System.Drawing.Point(386, 283);
+            this.WalleLabel.Name = "WalleLabel";
+            this.WalleLabel.Size = new System.Drawing.Size(55, 17);
+            this.WalleLabel.TabIndex = 25;
+            this.WalleLabel.Text = "Wall-E";
             // 
-            // label3
+            // CommandLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(136, 17);
-            this.label3.TabIndex = 26;
-            this.label3.Text = "Enter AT-Command:";
+            this.CommandLabel.AutoSize = true;
+            this.CommandLabel.Location = new System.Drawing.Point(9, 15);
+            this.CommandLabel.Name = "CommandLabel";
+            this.CommandLabel.Size = new System.Drawing.Size(136, 17);
+            this.CommandLabel.TabIndex = 26;
+            this.CommandLabel.Text = "Enter AT-Command:";
+            // 
+            // SendModuleLabel
+            // 
+            this.SendModuleLabel.AutoSize = true;
+            this.SendModuleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SendModuleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.SendModuleLabel.Location = new System.Drawing.Point(175, 283);
+            this.SendModuleLabel.Name = "SendModuleLabel";
+            this.SendModuleLabel.Size = new System.Drawing.Size(102, 17);
+            this.SendModuleLabel.TabIndex = 27;
+            this.SendModuleLabel.Text = "Send Module";
+            // 
+            // ChannelButton
+            // 
+            this.ChannelButton.Location = new System.Drawing.Point(57, 40);
+            this.ChannelButton.Name = "ChannelButton";
+            this.ChannelButton.Size = new System.Drawing.Size(124, 23);
+            this.ChannelButton.TabIndex = 3;
+            this.ChannelButton.Text = "Set Channel";
+            this.ChannelButton.UseVisualStyleBackColor = true;
+            this.ChannelButton.Click += new System.EventHandler(this.ChannelButton_Click);
+            // 
+            // ChannelTextBox
+            // 
+            this.ChannelTextBox.Location = new System.Drawing.Point(12, 40);
+            this.ChannelTextBox.MaxLength = 3;
+            this.ChannelTextBox.Name = "ChannelTextBox";
+            this.ChannelTextBox.Size = new System.Drawing.Size(39, 22);
+            this.ChannelTextBox.TabIndex = 2;
+            this.ChannelTextBox.Text = "0";
+            this.ChannelTextBox.TextChanged += new System.EventHandler(this.ChannelNumberTextbox_TextChanged);
+            // 
+            // DefaultButton
+            // 
+            this.DefaultButton.Location = new System.Drawing.Point(187, 40);
+            this.DefaultButton.Name = "DefaultButton";
+            this.DefaultButton.Size = new System.Drawing.Size(124, 23);
+            this.DefaultButton.TabIndex = 4;
+            this.DefaultButton.Text = "Set To Default";
+            this.DefaultButton.UseVisualStyleBackColor = true;
+            this.DefaultButton.Click += new System.EventHandler(this.DefaultButton_Click);
+            // 
+            // InfoButton
+            // 
+            this.InfoButton.Location = new System.Drawing.Point(317, 40);
+            this.InfoButton.Name = "InfoButton";
+            this.InfoButton.Size = new System.Drawing.Size(124, 23);
+            this.InfoButton.TabIndex = 5;
+            this.InfoButton.Text = "Get Info";
+            this.InfoButton.UseVisualStyleBackColor = true;
+            this.InfoButton.Click += new System.EventHandler(this.InfoButton_Click);
             // 
             // ATConsole
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(453, 309);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.InfoButton);
+            this.Controls.Add(this.DefaultButton);
+            this.Controls.Add(this.ChannelTextBox);
+            this.Controls.Add(this.ChannelButton);
+            this.Controls.Add(this.SendModuleLabel);
+            this.Controls.Add(this.CommandLabel);
+            this.Controls.Add(this.WalleLabel);
+            this.Controls.Add(this.OutgoingLabel);
+            this.Controls.Add(this.LogTextBoxBorderPanel);
             this.Controls.Add(this.CommandTextBox);
-            this.Controls.Add(this.closeButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ATConsole";
-            this.Text = "Wall-e AT-Console";
-            this.panel1.ResumeLayout(false);
+            this.Text = "Wall-E AT-Console";
+            this.LogTextBoxBorderPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,12 +206,16 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.TextBox CommandTextBox;
-        public System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.RichTextBox logTextBox;
+        private System.Windows.Forms.Panel LogTextBoxBorderPanel;
+        private System.Windows.Forms.Label OutgoingLabel;
+        private System.Windows.Forms.Label WalleLabel;
+        private System.Windows.Forms.Label CommandLabel;
+        private System.Windows.Forms.Label SendModuleLabel;
+        private System.Windows.Forms.Button ChannelButton;
+        private System.Windows.Forms.TextBox ChannelTextBox;
+        private System.Windows.Forms.Button DefaultButton;
+        private System.Windows.Forms.Button InfoButton;
     }
 }
