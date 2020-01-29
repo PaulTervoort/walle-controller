@@ -49,6 +49,7 @@ namespace Wall_e_Controller
                         port.ErrorReceived += new SerialErrorReceivedEventHandler(SerialError);
                         port.WriteTimeout = 200;
                         port.Open();
+                        Thread.Sleep(500);
                     }
 
                     byte[] test = { 0 };
@@ -142,7 +143,7 @@ namespace Wall_e_Controller
                         {
                             if (atConsole.Visible)
                             {
-                                atConsole.WriteIncomingATMessage(b==1?">":"<" + atMessage);
+                                atConsole.WriteIncomingATMessage((b==1?"<":">") + atMessage);
                             }
                             atMessage = "";
                         }
@@ -172,6 +173,10 @@ namespace Wall_e_Controller
                     disconnectComPort();
                 }
             }
+            else
+            {
+                disconnectComPort();
+            }
         }
 
         void SerialError(object sender, SerialErrorReceivedEventArgs e)
@@ -187,8 +192,11 @@ namespace Wall_e_Controller
                 port.Close();
                 arduinoConnection = false;
 
-                ArduinoStatusLabel.Text = "inactive";
-                ArduinoStatusLabel.ForeColor = Color.Red;
+                BeginInvoke((MethodInvoker)delegate ()
+                {
+                    ArduinoStatusLabel.Text = "inactive";
+                    ArduinoStatusLabel.ForeColor = Color.Red;
+                });
             }
         }
 

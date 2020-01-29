@@ -154,7 +154,7 @@
             this.ChannelTextBox.Name = "ChannelTextBox";
             this.ChannelTextBox.Size = new System.Drawing.Size(39, 22);
             this.ChannelTextBox.TabIndex = 2;
-            this.ChannelTextBox.Text = "0";
+            this.ChannelTextBox.Text = "1";
             this.ChannelTextBox.TextChanged += new System.EventHandler(this.ChannelNumberTextbox_TextChanged);
             // 
             // DefaultButton
