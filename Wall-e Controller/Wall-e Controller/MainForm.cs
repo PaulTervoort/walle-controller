@@ -74,7 +74,10 @@ namespace Wall_e_Controller
         private ATConsole atConsole = new ATConsole(SendBytes);
         private void AtButton_Click(object sender, EventArgs e)
         {
-            DialogResult settings = atConsole.ShowDialog();
+            if (arduinoConnection)
+            {
+                DialogResult settings = atConsole.ShowDialog();
+            }
         }
 
         private void SettingsButton_Click(object sender, EventArgs e)
@@ -97,6 +100,11 @@ namespace Wall_e_Controller
             if (received.Contains((byte)0))
             {
                 arduinoConnection = true;
+
+                if (motorLoop.Status != TaskStatus.Running)
+                {
+                    motorLoop = Task.Factory.StartNew(() => { MotorLoop(); });
+                }
 
                 ArduinoStatusLabel.BeginInvoke((MethodInvoker)delegate ()
                 {
@@ -239,7 +247,6 @@ namespace Wall_e_Controller
         bool backward = false;
         bool right = false;
         bool left = false;
-        bool threadRunning = false;
 
         bool belly = false;
         bool bellyOpen = false;
@@ -250,37 +257,22 @@ namespace Wall_e_Controller
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            bool allowThreadRun = false;
-
-            if (e.KeyCode == Keys.W && !forward)
+            if (e.KeyCode == Keys.W)
             {
-                allowThreadRun = true;
                 forward = true;
-            }else if (e.KeyCode == Keys.S && !backward)
+            }
+            if (e.KeyCode == Keys.S)
             {
-                allowThreadRun = true;
                 backward = true;
             }
 
-            if (e.KeyCode == Keys.A && !left)
+            if (e.KeyCode == Keys.A)
             {
-                allowThreadRun = true;
                 left = true;
-            }else if (e.KeyCode == Keys.D && !right)
-            {
-                allowThreadRun = true;
-                right = true;
             }
-
-            if (!threadRunning && allowThreadRun && port.IsOpen)
+            if (e.KeyCode == Keys.D)
             {
-                new Thread(() =>
-                {
-                    Thread.CurrentThread.IsBackground = true;
-                    SetSpeeds();
-                }).Start();
-                threadRunning = true;
-                allowThreadRun = false;
+                right = true;
             }
 
             if (e.KeyCode == Keys.K && !belly)
@@ -290,14 +282,12 @@ namespace Wall_e_Controller
                 if (bellyOpen)
                 {
                     WriteLogLine("Opening belly");
-                    byte[] servoArray = { 101, 100, 150, 20, 4 };
-                    SetSpeeds(servoArray);
+                    servoValues.Add(new byte[] { 100, 150, 20, 4 });
                 }
                 else
                 {
                     WriteLogLine("Closing belly");
-                    byte[] servoArray = { 101, 100, 50, 20, 4 };
-                    SetSpeeds(servoArray);
+                    servoValues.Add(new byte[] { 100, 50, 20, 4 });
                 }
             }
         }
@@ -345,26 +335,39 @@ namespace Wall_e_Controller
             }
 
             PowerLabel.Text = "Power: " + setSpeed.ToString();
-            PowerLabel.ForeColor = Color.White;
         }
 
-        public void SetSpeeds(byte[] servoArray = null)
-        {
-            if (servoArray == null)
-            {
-                servoArray = new byte[] { 100, 4 };
-            }
 
-            while (forward || backward || right || left)
+        Task motorLoop = Task.Factory.StartNew(() => { });
+        List<byte[]> servoValues = new List<byte[]>();
+        async void MotorLoop()
+        {
+            while (arduinoConnection)
             {
-                if (forward)
+                bool processedForward = forward;
+                bool processedBackward = backward;
+                bool processedLeft = left;
+                bool processedRight = right;
+
+                if (forward && backward)
                 {
-                    if (right)
+                    processedForward = false;
+                    processedBackward = false;
+                }
+                if (left && right)
+                {
+                    processedLeft = false;
+                    processedRight = false;
+                }
+
+                if (processedForward)
+                {
+                    if (processedRight)
                     {
                         r_speed = 0;
                         l_speed = setSpeed;
                     }
-                    else if (left)
+                    else if (processedLeft)
                     {
                         r_speed = setSpeed;
                         l_speed = 0;
@@ -375,14 +378,14 @@ namespace Wall_e_Controller
                         l_speed = setSpeed;
                     }
                 }
-                else if (backward)
+                else if (processedBackward)
                 {
-                    if (right)
+                    if (processedRight)
                     {
                         r_speed = 0;
                         l_speed = -setSpeed;
                     }
-                    else if (left)
+                    else if (processedLeft)
                     {
                         r_speed = -setSpeed;
                         l_speed = 0;
@@ -393,7 +396,7 @@ namespace Wall_e_Controller
                         l_speed = -setSpeed;
                     }
                 }
-                else if (right)
+                else if (processedRight)
                 {
                     r_speed = -setSpeed;
                     l_speed = setSpeed;
@@ -404,7 +407,7 @@ namespace Wall_e_Controller
                     if (l_speed < 60)
                         l_speed = 60;
                 }
-                else if (left)
+                else if (processedLeft)
                 {
                     r_speed = setSpeed;
                     l_speed = -setSpeed;
@@ -416,50 +419,47 @@ namespace Wall_e_Controller
                         r_speed = 60;
                 }
 
-                int byteRSpeed = 150 + (int)(r_speed * (float.Parse(Functions.GetSettingValue("right-motor-offset")) / 100));
-                int byteLSpeed = 150 + (int)(l_speed * (float.Parse(Functions.GetSettingValue("left-motor-offset")) / 100));
+                int processedSpeedRight = 150 + (int)(r_speed * (float.Parse(Functions.GetSettingValue("right-motor-offset")) / 100));
+                int processedSpeedLeft = 150 + (int)(l_speed * (float.Parse(Functions.GetSettingValue("left-motor-offset")) / 100));
 
-                int sendByteR = byteRSpeed;
-                int sendByteL = byteLSpeed;
+                byte sendByteR = (byte)processedSpeedRight;
+                byte sendByteL = (byte)processedSpeedLeft;
 
                 if (bool.Parse(Functions.GetSettingValue("inverse-steering")))
                 {
-                    sendByteR = byteLSpeed;
-                    sendByteL = byteRSpeed;
+                    sendByteR = (byte)processedSpeedLeft;
+                    sendByteL = (byte)processedSpeedRight;
                 }
 
-                byte[] speeds = { 3, (byte)sendByteL, (byte)sendByteR };
-                byte[] sendarray = new byte[speeds.Length + servoArray.Length];
+                int servoAmount = servoValues.Count;
+                byte[] servoArray = new byte[4 * servoAmount];
+                for(int i = 0; i < servoAmount; i++)
+                {
+                    servoValues[i].CopyTo(servoArray, 4 * i);
+                }
+                servoValues.Clear();
 
-                speeds.CopyTo(sendarray, 0);
-                servoArray.CopyTo(sendarray, speeds.Length);
-
-                SendBytes(sendarray);
-                Thread.Sleep(10);
-            }
-
-            if (!forward && !backward && !right && !left)
-            {
-                byte[] speeds = { 3, 150, 150 };
-                byte[] sendarray = new byte[speeds.Length + servoArray.Length];
-
-                speeds.CopyTo(sendarray, 0);
-                servoArray.CopyTo(sendarray, speeds.Length);
+                byte[] sendarray = new byte[servoArray.Length + 5];
+                sendarray[0] = 3;
+                sendarray[1] = sendByteL;
+                sendarray[2] = sendByteR;
+                sendarray[3] = (byte)(100 + servoAmount);
+                servoArray.CopyTo(sendarray, 4);
+                sendarray[sendarray.Length] = 4;
 
                 SendBytes(sendarray);
+                await Task.Delay(10);
             }
-
-            threadRunning = false;
         }
 
 
 
-        Task UpdateTask = Task.Factory.StartNew(() => { });
+        Task updateTask = Task.Factory.StartNew(() => { });
         void StartPictureUpdate()
         {
-            if (UpdateTask.Status != TaskStatus.Running)
+            if (updateTask.Status != TaskStatus.Running)
             {
-                UpdateTask = Task.Factory.StartNew(() =>
+                updateTask = Task.Factory.StartNew(() =>
                 {
                     CameraWebClient client = new CameraWebClient();
                     byte[] image = new byte[0];
