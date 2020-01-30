@@ -13,7 +13,7 @@ namespace Wall_e_Controller
 {
     public partial class MainForm : Form
     {
-        private static SerialPort port = new SerialPort();
+        private SerialPort port = new SerialPort();
         private bool arduinoConnection = false;
 
         public MainForm()
@@ -42,8 +42,6 @@ namespace Wall_e_Controller
                 {
                     if (!port.IsOpen)
                     {
-                        disconnectComPort = DisconnectComPort;
-
                         port = new SerialPort(Functions.GetSettingValue("arduino-com"));
                         port.DataReceived += new SerialDataReceivedEventHandler(ReceiveBytes);
                         port.ErrorReceived += new SerialErrorReceivedEventHandler(SerialError);
@@ -71,9 +69,10 @@ namespace Wall_e_Controller
             StartPictureUpdate();
         }
 
-        private ATConsole atConsole = new ATConsole(SendBytes);
+        private ATConsole atConsole;
         private void AtButton_Click(object sender, EventArgs e)
         {
+            atConsole = new ATConsole(this);
             if (arduinoConnection)
             {
                 DialogResult settings = atConsole.ShowDialog();
@@ -167,8 +166,7 @@ namespace Wall_e_Controller
             }
         }
 
-        static Action disconnectComPort;
-        static void SendBytes(byte[] sendData)
+        public void SendBytes(byte[] sendData)
         {
             if (port.IsOpen)
             {
@@ -178,12 +176,12 @@ namespace Wall_e_Controller
                 }
                 catch
                 {
-                    disconnectComPort();
+                    DisconnectComPort();
                 }
             }
             else
             {
-                disconnectComPort();
+                DisconnectComPort();
             }
         }
 
@@ -243,17 +241,17 @@ namespace Wall_e_Controller
 
 
 
-        bool forward = false;
-        bool backward = false;
-        bool right = false;
-        bool left = false;
+        private bool forward = false;
+        private bool backward = false;
+        private bool right = false;
+        private bool left = false;
 
-        bool belly = false;
-        bool bellyOpen = false;
+        private bool belly = false;
+        private bool bellyOpen = false;
 
-        int setSpeed = 0;
-        int r_speed = 0;
-        int l_speed = 0;
+        private int setSpeed = 0;
+        private int r_speed = 0;
+        private int l_speed = 0;
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -338,8 +336,8 @@ namespace Wall_e_Controller
         }
 
 
-        Task motorLoop = Task.Factory.StartNew(() => { });
-        List<byte[]> servoValues = new List<byte[]>();
+        private Task motorLoop = Task.Factory.StartNew(() => { });
+        private List<byte[]> servoValues = new List<byte[]>();
         async void MotorLoop()
         {
             while (arduinoConnection)
@@ -454,7 +452,7 @@ namespace Wall_e_Controller
 
 
 
-        Task updateTask = Task.Factory.StartNew(() => { });
+        private Task updateTask = Task.Factory.StartNew(() => { });
         void StartPictureUpdate()
         {
             if (updateTask.Status != TaskStatus.Running)

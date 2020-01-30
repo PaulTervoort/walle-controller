@@ -13,11 +13,11 @@ namespace Wall_e_Controller
 {
     public partial class ATConsole : Form
     {
-        Action<byte[]> sendData;
+        MainForm parent;
 
-        public ATConsole(Action<byte[]> sendDataFunction)
+        public ATConsole(MainForm parentForm)
         {
-            sendData = sendDataFunction;
+            parent = parentForm;
             InitializeComponent();
         }
 
@@ -50,7 +50,7 @@ namespace Wall_e_Controller
 
             Task.Factory.StartNew(() =>
             {
-                sendData(atCommand);
+                parent.SendBytes(atCommand);
             });
 
             logTextBox.SelectionStart = 0;
