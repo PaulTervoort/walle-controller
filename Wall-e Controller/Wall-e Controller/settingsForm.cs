@@ -25,7 +25,9 @@ namespace Wall_e_Controller
             foreach (string port in ports)
             {
                 if (port == Functions.GetSettingValue("arduino-com"))
+                {
                     ComBox.SelectedItem = port;
+                }
             }
 
             string[] ip = Functions.GetSettingValue("ip-address").Split('.');
@@ -36,9 +38,12 @@ namespace Wall_e_Controller
 
             LeftMotorOffset.Value = int.Parse(Functions.GetSettingValue("left-motor-offset"));
             RightMotorOffset.Value = int.Parse(Functions.GetSettingValue("right-motor-offset"));
+            MotorPower.Value = int.Parse(Functions.GetSettingValue("motor-power"));
+            PowerIncrease.Value = int.Parse(Functions.GetSettingValue("power-increase"));
 
             InverseSteering.Checked = bool.Parse(Functions.GetSettingValue("inverse-steering"));
-
+            AxisTurnPower.Value = int.Parse(Functions.GetSettingValue("axis-turn-power"));
+            TurnPower.Value = int.Parse(Functions.GetSettingValue("turn-power"));
         }
 
         private void settingsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -47,7 +52,11 @@ namespace Wall_e_Controller
             Functions.SetSettingValue("ip-address", RPiIPOne.Value.ToString() + "." + RPiIPTwo.Value.ToString() + "." + RPiIPThree.Value.ToString() + "." + RPiIPFour.Value.ToString());
             Functions.SetSettingValue("left-motor-offset", LeftMotorOffset.Value.ToString());
             Functions.SetSettingValue("right-motor-offset", RightMotorOffset.Value.ToString());
+            Functions.SetSettingValue("motor-power", MotorPower.Value.ToString());
+            Functions.SetSettingValue("power-increase", PowerIncrease.Value.ToString());
             Functions.SetSettingValue("inverse-steering", InverseSteering.Checked.ToString());
+            Functions.SetSettingValue("axis-turn-power", AxisTurnPower.Value.ToString());
+            Functions.SetSettingValue("turn-power", TurnPower.Value.ToString());
         }
 
         private void closeButton_Click(object sender, EventArgs e)

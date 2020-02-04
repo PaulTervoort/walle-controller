@@ -34,9 +34,9 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.IPDot1 = new System.Windows.Forms.Label();
+            this.IPDot3 = new System.Windows.Forms.Label();
+            this.IPDot2 = new System.Windows.Forms.Label();
             this.RPiIPOne = new System.Windows.Forms.NumericUpDown();
             this.RPiIPFour = new System.Windows.Forms.NumericUpDown();
             this.RPiIPThree = new System.Windows.Forms.NumericUpDown();
@@ -51,12 +51,24 @@
             this.SteeringSettingsLabel = new System.Windows.Forms.Label();
             this.InverseSteering = new System.Windows.Forms.CheckBox();
             this.InverseSteeringLabel = new System.Windows.Forms.Label();
+            this.MotorPower = new System.Windows.Forms.NumericUpDown();
+            this.MotorPowerLabel = new System.Windows.Forms.Label();
+            this.AxisTurnPower = new System.Windows.Forms.NumericUpDown();
+            this.AxisTurnPowerLabel = new System.Windows.Forms.Label();
+            this.TurnPower = new System.Windows.Forms.NumericUpDown();
+            this.TurnPowerLabel = new System.Windows.Forms.Label();
+            this.PowerIncreaseLabel = new System.Windows.Forms.Label();
+            this.PowerIncrease = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.RPiIPOne)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RPiIPFour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RPiIPThree)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RPiIPTwo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LeftMotorOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RightMotorOffset)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MotorPower)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AxisTurnPower)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnPower)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PowerIncrease)).BeginInit();
             this.SuspendLayout();
             // 
             // ArduinoComTitleLabel
@@ -98,6 +110,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 22);
             this.textBox2.TabIndex = 0;
+            this.textBox2.Text = "hjgfhjkhgjkuhgfvbjkljhgfdcvbnmjkhgfdcvbghjkljhgfghjkljhg";
             // 
             // textBox3
             // 
@@ -106,32 +119,32 @@
             this.textBox3.Size = new System.Drawing.Size(100, 22);
             this.textBox3.TabIndex = 0;
             // 
-            // label1
+            // IPDot1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(273, 66);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(12, 17);
-            this.label1.TabIndex = 7;
-            this.label1.Text = ".";
+            this.IPDot1.AutoSize = true;
+            this.IPDot1.Location = new System.Drawing.Point(273, 66);
+            this.IPDot1.Name = "IPDot1";
+            this.IPDot1.Size = new System.Drawing.Size(12, 17);
+            this.IPDot1.TabIndex = 7;
+            this.IPDot1.Text = ".";
             // 
-            // label2
+            // IPDot3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(385, 67);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(12, 17);
-            this.label2.TabIndex = 8;
-            this.label2.Text = ".";
+            this.IPDot3.AutoSize = true;
+            this.IPDot3.Location = new System.Drawing.Point(385, 67);
+            this.IPDot3.Name = "IPDot3";
+            this.IPDot3.Size = new System.Drawing.Size(12, 17);
+            this.IPDot3.TabIndex = 8;
+            this.IPDot3.Text = ".";
             // 
-            // label4
+            // IPDot2
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(329, 67);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(12, 17);
-            this.label4.TabIndex = 10;
-            this.label4.Text = ".";
+            this.IPDot2.AutoSize = true;
+            this.IPDot2.Location = new System.Drawing.Point(329, 67);
+            this.IPDot2.Name = "IPDot2";
+            this.IPDot2.Size = new System.Drawing.Size(12, 17);
+            this.IPDot2.TabIndex = 10;
+            this.IPDot2.Text = ".";
             // 
             // RPiIPOne
             // 
@@ -235,7 +248,7 @@
             // 
             // ApplyButton
             // 
-            this.ApplyButton.Location = new System.Drawing.Point(151, 260);
+            this.ApplyButton.Location = new System.Drawing.Point(151, 361);
             this.ApplyButton.Name = "ApplyButton";
             this.ApplyButton.Size = new System.Drawing.Size(151, 37);
             this.ApplyButton.TabIndex = 21;
@@ -247,7 +260,7 @@
             // 
             this.SteeringSettingsLabel.AutoSize = true;
             this.SteeringSettingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SteeringSettingsLabel.Location = new System.Drawing.Point(12, 185);
+            this.SteeringSettingsLabel.Location = new System.Drawing.Point(12, 241);
             this.SteeringSettingsLabel.Name = "SteeringSettingsLabel";
             this.SteeringSettingsLabel.Size = new System.Drawing.Size(133, 17);
             this.SteeringSettingsLabel.TabIndex = 22;
@@ -256,7 +269,7 @@
             // InverseSteering
             // 
             this.InverseSteering.AutoSize = true;
-            this.InverseSteering.Location = new System.Drawing.Point(423, 207);
+            this.InverseSteering.Location = new System.Drawing.Point(423, 263);
             this.InverseSteering.Name = "InverseSteering";
             this.InverseSteering.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.InverseSteering.Size = new System.Drawing.Size(18, 17);
@@ -266,17 +279,94 @@
             // InverseSteeringLabel
             // 
             this.InverseSteeringLabel.AutoSize = true;
-            this.InverseSteeringLabel.Location = new System.Drawing.Point(12, 207);
+            this.InverseSteeringLabel.Location = new System.Drawing.Point(12, 263);
             this.InverseSteeringLabel.Name = "InverseSteeringLabel";
             this.InverseSteeringLabel.Size = new System.Drawing.Size(115, 17);
             this.InverseSteeringLabel.TabIndex = 24;
             this.InverseSteeringLabel.Text = "Inverse Steering:";
             // 
+            // MotorPower
+            // 
+            this.MotorPower.Location = new System.Drawing.Point(227, 177);
+            this.MotorPower.Name = "MotorPower";
+            this.MotorPower.Size = new System.Drawing.Size(214, 22);
+            this.MotorPower.TabIndex = 26;
+            // 
+            // MotorPowerLabel
+            // 
+            this.MotorPowerLabel.AutoSize = true;
+            this.MotorPowerLabel.Location = new System.Drawing.Point(12, 177);
+            this.MotorPowerLabel.Name = "MotorPowerLabel";
+            this.MotorPowerLabel.Size = new System.Drawing.Size(142, 17);
+            this.MotorPowerLabel.TabIndex = 25;
+            this.MotorPowerLabel.Text = "Minimal Motor Power:";
+            // 
+            // AxisTurnPower
+            // 
+            this.AxisTurnPower.Location = new System.Drawing.Point(227, 291);
+            this.AxisTurnPower.Name = "AxisTurnPower";
+            this.AxisTurnPower.Size = new System.Drawing.Size(214, 22);
+            this.AxisTurnPower.TabIndex = 28;
+            // 
+            // AxisTurnPowerLabel
+            // 
+            this.AxisTurnPowerLabel.AutoSize = true;
+            this.AxisTurnPowerLabel.Location = new System.Drawing.Point(12, 291);
+            this.AxisTurnPowerLabel.Name = "AxisTurnPowerLabel";
+            this.AxisTurnPowerLabel.Size = new System.Drawing.Size(165, 17);
+            this.AxisTurnPowerLabel.TabIndex = 27;
+            this.AxisTurnPowerLabel.Text = "Minimal Axis Turn Power:";
+            // 
+            // TurnPower
+            // 
+            this.TurnPower.Location = new System.Drawing.Point(227, 319);
+            this.TurnPower.Name = "TurnPower";
+            this.TurnPower.Size = new System.Drawing.Size(214, 22);
+            this.TurnPower.TabIndex = 30;
+            // 
+            // TurnPowerLabel
+            // 
+            this.TurnPowerLabel.AutoSize = true;
+            this.TurnPowerLabel.Location = new System.Drawing.Point(12, 319);
+            this.TurnPowerLabel.Name = "TurnPowerLabel";
+            this.TurnPowerLabel.Size = new System.Drawing.Size(136, 17);
+            this.TurnPowerLabel.TabIndex = 29;
+            this.TurnPowerLabel.Text = "Minimal Turn Power:";
+            // 
+            // PowerIncreaseLabel
+            // 
+            this.PowerIncreaseLabel.AutoSize = true;
+            this.PowerIncreaseLabel.Location = new System.Drawing.Point(12, 205);
+            this.PowerIncreaseLabel.Name = "PowerIncreaseLabel";
+            this.PowerIncreaseLabel.Size = new System.Drawing.Size(154, 17);
+            this.PowerIncreaseLabel.TabIndex = 31;
+            this.PowerIncreaseLabel.Text = "Power Increase Speed:";
+            // 
+            // PowerIncrease
+            // 
+            this.PowerIncrease.Location = new System.Drawing.Point(227, 207);
+            this.PowerIncrease.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.PowerIncrease.Name = "PowerIncrease";
+            this.PowerIncrease.Size = new System.Drawing.Size(214, 22);
+            this.PowerIncrease.TabIndex = 32;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 309);
+            this.ClientSize = new System.Drawing.Size(453, 410);
+            this.Controls.Add(this.PowerIncrease);
+            this.Controls.Add(this.PowerIncreaseLabel);
+            this.Controls.Add(this.TurnPower);
+            this.Controls.Add(this.TurnPowerLabel);
+            this.Controls.Add(this.AxisTurnPower);
+            this.Controls.Add(this.AxisTurnPowerLabel);
+            this.Controls.Add(this.MotorPower);
+            this.Controls.Add(this.MotorPowerLabel);
             this.Controls.Add(this.InverseSteeringLabel);
             this.Controls.Add(this.InverseSteering);
             this.Controls.Add(this.SteeringSettingsLabel);
@@ -294,9 +384,9 @@
             this.Controls.Add(this.RPiIPTitleLabel);
             this.Controls.Add(this.ComBox);
             this.Controls.Add(this.ArduinoComTitleLabel);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.IPDot1);
+            this.Controls.Add(this.IPDot2);
+            this.Controls.Add(this.IPDot3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "SettingsForm";
@@ -309,6 +399,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.RPiIPTwo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LeftMotorOffset)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RightMotorOffset)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MotorPower)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AxisTurnPower)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnPower)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PowerIncrease)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,9 +416,9 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label IPDot1;
+        private System.Windows.Forms.Label IPDot3;
+        private System.Windows.Forms.Label IPDot2;
         private System.Windows.Forms.NumericUpDown RPiIPOne;
         private System.Windows.Forms.NumericUpDown RPiIPFour;
         private System.Windows.Forms.NumericUpDown RPiIPThree;
@@ -339,5 +433,13 @@
         private System.Windows.Forms.Label SteeringSettingsLabel;
         private System.Windows.Forms.CheckBox InverseSteering;
         private System.Windows.Forms.Label InverseSteeringLabel;
+        private System.Windows.Forms.NumericUpDown MotorPower;
+        private System.Windows.Forms.Label MotorPowerLabel;
+        private System.Windows.Forms.NumericUpDown AxisTurnPower;
+        private System.Windows.Forms.Label AxisTurnPowerLabel;
+        private System.Windows.Forms.NumericUpDown TurnPower;
+        private System.Windows.Forms.Label TurnPowerLabel;
+        private System.Windows.Forms.Label PowerIncreaseLabel;
+        private System.Windows.Forms.NumericUpDown PowerIncrease;
     }
 }

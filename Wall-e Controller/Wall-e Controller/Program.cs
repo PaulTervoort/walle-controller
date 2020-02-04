@@ -19,7 +19,7 @@ namespace Wall_e_Controller
 
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\wall-e\\settings.txt"))
             {
-                string[] lines = { "arduino-com:COM0", "ip-address:192.168.1.2", "left-motor-offset:100", "right-motor-offset:100", "inverse-steering:false" };
+                string[] lines = { "arduino-com:COM0", "ip-address:192.168.1.2", "left-motor-offset:100", "right-motor-offset:100", "motor-power:10", "power-increase:1", "inverse-steering:false", "axis-turn-power:30", "turn-power:20" };
                 File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\wall-e\\settings.txt", lines);
             }
 

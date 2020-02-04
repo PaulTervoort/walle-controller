@@ -248,12 +248,14 @@ namespace Wall_e_Controller
         bool right = false;
         bool left = false;
 
+        bool lastSteer = false;
+
         bool belly = false;
         bool bellyOpen = false;
 
         int setSpeed = 0;
-        int r_speed = 0;
-        int l_speed = 0;
+        double r_speed = 0;
+        double l_speed = 0;
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -349,6 +351,9 @@ namespace Wall_e_Controller
                 bool processedLeft = left;
                 bool processedRight = right;
 
+                int leftTarget = 0;
+                int rightTarget = 0;
+
                 if (forward && backward)
                 {
                     processedForward = false;
@@ -360,72 +365,117 @@ namespace Wall_e_Controller
                     processedRight = false;
                 }
 
+                int motorPower = int.Parse(Functions.GetSettingValue("motor-power"));
+                int straightSetSpeed = motorPower + setSpeed * (100 - motorPower) / 100;
+                int turnPower = int.Parse(Functions.GetSettingValue("turn-power"));
+                int turnSetSpeed = turnPower + setSpeed * (100 - turnPower) / 100;
+                int axisTurnPower = int.Parse(Functions.GetSettingValue("axis-turn-power"));
+                int axisTurnSetSpeed = axisTurnPower + setSpeed * (100 - axisTurnPower) / 100;
+
                 if (processedForward)
                 {
                     if (processedRight)
                     {
-                        r_speed = 0;
-                        l_speed = setSpeed;
+                        rightTarget = 0;
+                        leftTarget = turnSetSpeed;
                     }
                     else if (processedLeft)
                     {
-                        r_speed = setSpeed;
-                        l_speed = 0;
+                        rightTarget = turnSetSpeed;
+                        leftTarget = 0;
                     }
                     else
                     {
-                        r_speed = setSpeed;
-                        l_speed = setSpeed;
+                        rightTarget = straightSetSpeed;
+                        leftTarget = straightSetSpeed;
                     }
                 }
                 else if (processedBackward)
                 {
                     if (processedRight)
                     {
-                        r_speed = 0;
-                        l_speed = -setSpeed;
+                        rightTarget = 0;
+                        leftTarget = -turnSetSpeed;
                     }
                     else if (processedLeft)
                     {
-                        r_speed = -setSpeed;
-                        l_speed = 0;
+                        rightTarget = -turnSetSpeed;
+                        leftTarget = 0;
                     }
                     else
                     {
-                        r_speed = -setSpeed;
-                        l_speed = -setSpeed;
+                        rightTarget = -straightSetSpeed;
+                        leftTarget = -straightSetSpeed;
                     }
                 }
                 else if (processedRight)
                 {
-                    r_speed = -setSpeed;
-                    l_speed = setSpeed;
-
-                    if (r_speed > -60)
-                        r_speed = -60;
-
-                    if (l_speed < 60)
-                        l_speed = 60;
+                    rightTarget = -axisTurnSetSpeed;
+                    leftTarget = axisTurnSetSpeed;
                 }
                 else if (processedLeft)
                 {
-                    r_speed = setSpeed;
-                    l_speed = -setSpeed;
-
-                    if (l_speed > -60)
-                        l_speed = -60;
-
-                    if (r_speed < 60)
-                        r_speed = 60;
+                    rightTarget = axisTurnSetSpeed;
+                    leftTarget = -axisTurnSetSpeed;
                 }
                 else
                 {
-                    r_speed = 0;
-                    l_speed = 0;
+                    rightTarget = 0;
+                    leftTarget = 0;
                 }
 
-                int processedSpeedRight = 150 + (int)(r_speed * (float.Parse(Functions.GetSettingValue("right-motor-offset")) / 100));
-                int processedSpeedLeft = 150 + (int)(l_speed * (float.Parse(Functions.GetSettingValue("left-motor-offset")) / 100));
+                double changeSpeed = double.Parse(Functions.GetSettingValue("power-increase")) / 20;
+                if (Math.Abs(r_speed - rightTarget) > 2)
+                {
+                    if (r_speed < rightTarget)
+                    {
+                        r_speed += changeSpeed;
+                    }
+                    else
+                    {
+                        r_speed -= changeSpeed;
+                    }
+                }
+                else
+                {
+                    r_speed = rightTarget;
+                }
+                if (Math.Abs(l_speed - leftTarget) > 2)
+                {
+                    if (l_speed < leftTarget)
+                    {
+                        l_speed += changeSpeed;
+                    }
+                    else
+                    {
+                        l_speed -= changeSpeed;
+                    }
+                }
+                else
+                {
+                    l_speed = leftTarget;
+                }
+
+                if (Math.Abs(r_speed) < straightSetSpeed && Math.Abs(rightTarget) > straightSetSpeed)
+                {
+                    r_speed = rightTarget * straightSetSpeed / Math.Abs(rightTarget);
+                }
+                if (Math.Abs(l_speed) < straightSetSpeed && Math.Abs(leftTarget) > straightSetSpeed)
+                {
+                    l_speed = leftTarget * straightSetSpeed / Math.Abs(leftTarget);
+                }
+
+                if(!(processedLeft || processedRight) && lastSteer)
+                {
+                    int avgSpeed = (int)(r_speed + l_speed) / 2;
+
+                    r_speed = avgSpeed;
+                    l_speed = avgSpeed;
+                }
+                lastSteer = processedLeft || processedRight;
+
+                int processedSpeedRight = 150 + (int)(r_speed * (double.Parse(Functions.GetSettingValue("right-motor-offset")) / 100));
+                int processedSpeedLeft = 150 + (int)(l_speed * (double.Parse(Functions.GetSettingValue("left-motor-offset")) / 100));
 
                 byte sendByteR = (byte)processedSpeedRight;
                 byte sendByteL = (byte)processedSpeedLeft;
@@ -452,17 +502,17 @@ namespace Wall_e_Controller
                 servoArray.CopyTo(sendarray, 4);
                 sendarray[sendarray.Length - 1] = 4;
 
-                WriteLogLine(sendByteL + "," + sendByteR);
+                //WriteLogLine(sendByteL + "," + sendByteR);
 
                 if (!atConsole.Visible)
                 {
                     SendBytes(sendarray);
                 }
-                else
+                /*else
                 {
                     WriteLogLine("paused");
-                }
-                await Task.Delay(10);
+                }*/
+                await Task.Delay(20);
             }
         }
 
