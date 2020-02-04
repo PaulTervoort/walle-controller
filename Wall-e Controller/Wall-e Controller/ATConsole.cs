@@ -13,11 +13,11 @@ namespace Wall_e_Controller
 {
     public partial class ATConsole : Form
     {
-        MainForm parent;
+        Action<byte[]> sendData;
 
-        public ATConsole(MainForm parentForm)
+        public ATConsole(Action<byte[]> sendDataFunction)
         {
-            parent = parentForm;
+            sendData = sendDataFunction;
             InitializeComponent();
         }
 
@@ -50,7 +50,7 @@ namespace Wall_e_Controller
 
             Task.Factory.StartNew(() =>
             {
-                parent.SendBytes(atCommand);
+                sendData(atCommand);
             });
 
             logTextBox.SelectionStart = 0;
@@ -63,7 +63,7 @@ namespace Wall_e_Controller
         string previousNumber = "";
         void ChannelNumberTextbox_TextChanged(object sender, EventArgs e)
         {
-            if(ChannelTextBox.Text != previousNumber)
+            if (ChannelTextBox.Text != previousNumber)
             {
                 string textboxText = ChannelTextBox.Text;
                 string filteredNumber = "";

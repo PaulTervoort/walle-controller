@@ -13,7 +13,7 @@ namespace Wall_e_Controller
 {
     public partial class MainForm : Form
     {
-        private SerialPort port = new SerialPort();
+        private static SerialPort port = new SerialPort();
         private bool arduinoConnection = false;
 
         public MainForm()
@@ -42,6 +42,8 @@ namespace Wall_e_Controller
                 {
                     if (!port.IsOpen)
                     {
+                        disconnectComPort = DisconnectComPort;
+
                         port = new SerialPort(Functions.GetSettingValue("arduino-com"));
                         port.DataReceived += new SerialDataReceivedEventHandler(ReceiveBytes);
                         port.ErrorReceived += new SerialErrorReceivedEventHandler(SerialError);
@@ -69,10 +71,9 @@ namespace Wall_e_Controller
             StartPictureUpdate();
         }
 
-        private ATConsole atConsole;
+        private ATConsole atConsole = new ATConsole(SendBytes);
         private void AtButton_Click(object sender, EventArgs e)
         {
-            atConsole = new ATConsole(this);
             if (arduinoConnection)
             {
                 DialogResult settings = atConsole.ShowDialog();
@@ -143,14 +144,14 @@ namespace Wall_e_Controller
                         }
                     });
 
-                    if(b == 2 || b == 1)
+                    if (b == 2 || b == 1)
                     {
                         atMessageBuild = !atMessageBuild;
                         if (!atMessageBuild)
                         {
                             if (atConsole.Visible)
                             {
-                                atConsole.WriteIncomingATMessage((b==1?"<":">") + atMessage);
+                                atConsole.WriteIncomingATMessage((b == 1 ? "<" : ">") + atMessage);
                             }
                             atMessage = "";
                         }
@@ -166,7 +167,8 @@ namespace Wall_e_Controller
             }
         }
 
-        public void SendBytes(byte[] sendData)
+        static Action disconnectComPort;
+        static void SendBytes(byte[] sendData)
         {
             if (port.IsOpen)
             {
@@ -176,12 +178,12 @@ namespace Wall_e_Controller
                 }
                 catch
                 {
-                    DisconnectComPort();
+                    disconnectComPort();
                 }
             }
             else
             {
-                DisconnectComPort();
+                disconnectComPort();
             }
         }
 
@@ -241,17 +243,17 @@ namespace Wall_e_Controller
 
 
 
-        private bool forward = false;
-        private bool backward = false;
-        private bool right = false;
-        private bool left = false;
+        bool forward = false;
+        bool backward = false;
+        bool right = false;
+        bool left = false;
 
-        private bool belly = false;
-        private bool bellyOpen = false;
+        bool belly = false;
+        bool bellyOpen = false;
 
-        private int setSpeed = 0;
-        private int r_speed = 0;
-        private int l_speed = 0;
+        int setSpeed = 0;
+        int r_speed = 0;
+        int l_speed = 0;
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -280,12 +282,12 @@ namespace Wall_e_Controller
                 if (bellyOpen)
                 {
                     WriteLogLine("Opening belly");
-                    servoValues.Add(new byte[] { 100, 150, 20, 4 });
+                    servoValues.Add(new byte[] { 100, 150, 20 });
                 }
                 else
                 {
                     WriteLogLine("Closing belly");
-                    servoValues.Add(new byte[] { 100, 50, 20, 4 });
+                    servoValues.Add(new byte[] { 100, 50, 20 });
                 }
             }
         }
@@ -336,8 +338,8 @@ namespace Wall_e_Controller
         }
 
 
-        private Task motorLoop = Task.Factory.StartNew(() => { });
-        private List<byte[]> servoValues = new List<byte[]>();
+        Task motorLoop = Task.Factory.StartNew(() => { });
+        List<byte[]> servoValues = new List<byte[]>();
         async void MotorLoop()
         {
             while (arduinoConnection)
@@ -416,6 +418,11 @@ namespace Wall_e_Controller
                     if (r_speed < 60)
                         r_speed = 60;
                 }
+                else
+                {
+                    r_speed = 0;
+                    l_speed = 0;
+                }
 
                 int processedSpeedRight = 150 + (int)(r_speed * (float.Parse(Functions.GetSettingValue("right-motor-offset")) / 100));
                 int processedSpeedLeft = 150 + (int)(l_speed * (float.Parse(Functions.GetSettingValue("left-motor-offset")) / 100));
@@ -430,10 +437,10 @@ namespace Wall_e_Controller
                 }
 
                 int servoAmount = servoValues.Count;
-                byte[] servoArray = new byte[4 * servoAmount];
-                for(int i = 0; i < servoAmount; i++)
+                byte[] servoArray = new byte[3 * servoAmount];
+                for (int i = 0; i < servoAmount; i++)
                 {
-                    servoValues[i].CopyTo(servoArray, 4 * i);
+                    servoValues[i].CopyTo(servoArray, 3 * i);
                 }
                 servoValues.Clear();
 
@@ -443,16 +450,25 @@ namespace Wall_e_Controller
                 sendarray[2] = sendByteR;
                 sendarray[3] = (byte)(100 + servoAmount);
                 servoArray.CopyTo(sendarray, 4);
-                sendarray[sendarray.Length] = 4;
+                sendarray[sendarray.Length - 1] = 4;
 
-                SendBytes(sendarray);
+                WriteLogLine(sendByteL + "," + sendByteR);
+
+                if (!atConsole.Visible)
+                {
+                    SendBytes(sendarray);
+                }
+                else
+                {
+                    WriteLogLine("paused");
+                }
                 await Task.Delay(10);
             }
         }
 
 
 
-        private Task updateTask = Task.Factory.StartNew(() => { });
+        Task updateTask = Task.Factory.StartNew(() => { });
         void StartPictureUpdate()
         {
             if (updateTask.Status != TaskStatus.Running)
