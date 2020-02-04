@@ -248,7 +248,10 @@ namespace Wall_e_Controller
         bool right = false;
         bool left = false;
 
-        bool lastSteer = false;
+        bool resetSteering = false;
+
+        bool handBrake1 = false;
+        bool handBrake2 = false;
 
         bool belly = false;
         bool bellyOpen = false;
@@ -277,6 +280,20 @@ namespace Wall_e_Controller
                 right = true;
             }
 
+            if (e.KeyCode == Keys.Space)
+            {
+                resetSteering = true;
+            }
+
+            if (e.KeyCode == Keys.Q)
+            {
+                handBrake1 = true;
+            }
+            if (e.KeyCode == Keys.E)
+            {
+                handBrake2 = true;
+            }
+
             if (e.KeyCode == Keys.K && !belly)
             {
                 belly = true;
@@ -300,7 +317,6 @@ namespace Wall_e_Controller
             {
                 forward = false;
             }
-
             if (e.KeyCode == Keys.S)
             {
                 backward = false;
@@ -310,10 +326,23 @@ namespace Wall_e_Controller
             {
                 left = false;
             }
-
             if (e.KeyCode == Keys.D)
             {
                 right = false;
+            }
+
+            if (e.KeyCode == Keys.Space)
+            {
+                resetSteering = false;
+            }
+
+            if (e.KeyCode == Keys.Q)
+            {
+                handBrake1 = false;
+            }
+            if (e.KeyCode == Keys.E)
+            {
+                handBrake2 = false;
             }
 
             if (e.KeyCode == Keys.K)
@@ -465,14 +494,20 @@ namespace Wall_e_Controller
                     l_speed = leftTarget * straightSetSpeed / Math.Abs(leftTarget);
                 }
 
-                if(!(processedLeft || processedRight) && lastSteer)
+                if(resetSteering)
                 {
+                    resetSteering = false;
                     int avgSpeed = (int)(r_speed + l_speed) / 2;
 
                     r_speed = avgSpeed;
                     l_speed = avgSpeed;
                 }
-                lastSteer = processedLeft || processedRight;
+
+                if(handBrake1 && handBrake2)
+                {
+                    r_speed = 0;
+                    l_speed = 0;
+                }
 
                 int processedSpeedRight = 150 + (int)(r_speed * (double.Parse(Functions.GetSettingValue("right-motor-offset")) / 100));
                 int processedSpeedLeft = 150 + (int)(l_speed * (double.Parse(Functions.GetSettingValue("left-motor-offset")) / 100));
