@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.SettingsButton = new System.Windows.Forms.Button();
             this.ArduinoComTitleLabel = new System.Windows.Forms.Label();
             this.RPiIPTitleLabel = new System.Windows.Forms.Label();
@@ -44,14 +45,14 @@
             this.PowerLabel = new System.Windows.Forms.Label();
             this.IncomingDataTextBox = new System.Windows.Forms.TextBox();
             this.EqualTextboxSizeContainer = new System.Windows.Forms.SplitContainer();
+            this.IncomingDataResetButton = new System.Windows.Forms.Button();
             this.IncomingDataTextBoxTitle = new System.Windows.Forms.Label();
+            this.LogResetButton = new System.Windows.Forms.Button();
             this.LogTextBoxTitle = new System.Windows.Forms.Label();
             this.LogTextBox = new System.Windows.Forms.TextBox();
             this.HorizontalDivider = new System.Windows.Forms.Label();
             this.VerticalDivider = new System.Windows.Forms.Label();
             this.LabelDivider = new System.Windows.Forms.Label();
-            this.IncomingDataResetButton = new System.Windows.Forms.Button();
-            this.LogResetButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CamView)).BeginInit();
             this.PowerBackground.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EqualTextboxSizeContainer)).BeginInit();
@@ -241,6 +242,17 @@
             this.EqualTextboxSizeContainer.TabIndex = 15;
             this.EqualTextboxSizeContainer.TabStop = false;
             // 
+            // IncomingDataResetButton
+            // 
+            this.IncomingDataResetButton.Location = new System.Drawing.Point(220, -1);
+            this.IncomingDataResetButton.Name = "IncomingDataResetButton";
+            this.IncomingDataResetButton.Size = new System.Drawing.Size(75, 23);
+            this.IncomingDataResetButton.TabIndex = 20;
+            this.IncomingDataResetButton.TabStop = false;
+            this.IncomingDataResetButton.Text = "Reset";
+            this.IncomingDataResetButton.UseVisualStyleBackColor = true;
+            this.IncomingDataResetButton.Click += new System.EventHandler(this.IncomingDataResetButton_Click);
+            // 
             // IncomingDataTextBoxTitle
             // 
             this.IncomingDataTextBoxTitle.AutoSize = true;
@@ -249,6 +261,17 @@
             this.IncomingDataTextBoxTitle.Size = new System.Drawing.Size(102, 17);
             this.IncomingDataTextBoxTitle.TabIndex = 20;
             this.IncomingDataTextBoxTitle.Text = "Incoming Data:";
+            // 
+            // LogResetButton
+            // 
+            this.LogResetButton.Location = new System.Drawing.Point(220, 0);
+            this.LogResetButton.Name = "LogResetButton";
+            this.LogResetButton.Size = new System.Drawing.Size(75, 23);
+            this.LogResetButton.TabIndex = 21;
+            this.LogResetButton.TabStop = false;
+            this.LogResetButton.Text = "Reset";
+            this.LogResetButton.UseVisualStyleBackColor = true;
+            this.LogResetButton.Click += new System.EventHandler(this.LogResetButton_Click);
             // 
             // LogTextBoxTitle
             // 
@@ -302,28 +325,6 @@
             this.LabelDivider.Size = new System.Drawing.Size(2, 41);
             this.LabelDivider.TabIndex = 19;
             // 
-            // IncomingDataResetButton
-            // 
-            this.IncomingDataResetButton.Location = new System.Drawing.Point(220, -1);
-            this.IncomingDataResetButton.Name = "IncomingDataResetButton";
-            this.IncomingDataResetButton.Size = new System.Drawing.Size(75, 23);
-            this.IncomingDataResetButton.TabIndex = 20;
-            this.IncomingDataResetButton.TabStop = false;
-            this.IncomingDataResetButton.Text = "Reset";
-            this.IncomingDataResetButton.UseVisualStyleBackColor = true;
-            this.IncomingDataResetButton.Click += new System.EventHandler(this.IncomingDataResetButton_Click);
-            // 
-            // LogResetButton
-            // 
-            this.LogResetButton.Location = new System.Drawing.Point(220, 0);
-            this.LogResetButton.Name = "LogResetButton";
-            this.LogResetButton.Size = new System.Drawing.Size(75, 23);
-            this.LogResetButton.TabIndex = 21;
-            this.LogResetButton.TabStop = false;
-            this.LogResetButton.Text = "Reset";
-            this.LogResetButton.UseVisualStyleBackColor = true;
-            this.LogResetButton.Click += new System.EventHandler(this.LogResetButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -346,6 +347,7 @@
             this.Controls.Add(this.RPiIPTitleLabel);
             this.Controls.Add(this.ArduinoComTitleLabel);
             this.Controls.Add(this.SettingsButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(810, 390);
             this.Name = "MainForm";

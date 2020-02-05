@@ -369,6 +369,7 @@ namespace Wall_e_Controller
         }
 
 
+        const int delayTime = 50;
         Task motorLoop = Task.Factory.StartNew(() => { });
         List<byte[]> servoValues = new List<byte[]>();
         async void MotorLoop()
@@ -543,11 +544,8 @@ namespace Wall_e_Controller
                 {
                     SendBytes(sendarray);
                 }
-                /*else
-                {
-                    WriteLogLine("paused");
-                }*/
-                await Task.Delay(20);
+
+                await Task.Delay(delayTime);
             }
         }
 
